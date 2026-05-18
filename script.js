@@ -130,7 +130,7 @@ function renderProducts(productsArray, containerId) {
 function getImageSrc(image) {
     if (!image) return '';
     if (image.startsWith('data:') || image.startsWith('http://') || image.startsWith('https://')) return image;
-    return 'images/' + image;
+    return image;
 }
 
 function renderFeatured() {
@@ -451,7 +451,7 @@ function renderEditList() {
     }
     container.innerHTML = products.map(p => `
         <div class="admin-edit-item" data-id="${p.id}">
-            <img class="admin-edit-img" src="${p.image && p.image.startsWith('data:') || p.image && p.image.startsWith('http') ? p.image : 'images/' + p.image}" alt="${p.name}" onerror="this.src=''; this.style.background='var(--black)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'">
+            <img class="admin-edit-img" src="${getImageSrc(p.image)}" alt="${p.name}" onerror="this.src=''; this.style.background='var(--black)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'">
             <div class="admin-edit-info">
                 <div class="edit-name">${p.name}</div>
                 <div class="edit-brand">${p.brand}</div>
