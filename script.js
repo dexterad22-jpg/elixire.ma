@@ -28,6 +28,12 @@ function showPage(pageId) {
     }
 }
 
+// Hero button
+document.querySelector('.hero-content .btn')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    showPage('catalogue');
+});
+
 // Menu toggle
 document.getElementById('menuToggle').addEventListener('click', () => {
     document.querySelector('.nav-menu').classList.toggle('open');
