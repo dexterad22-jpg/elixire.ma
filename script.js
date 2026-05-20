@@ -87,11 +87,13 @@ function renderStars(note) {
 function renderProducts(productsArray, containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
-    container.innerHTML = productsArray.map(p => `
+    container.innerHTML = productsArray.map(p => {
+        const isDisp = !p.badge || p.badge === 'Disponible';
+        return `
         <div class="product-card" data-id="${p.id}" data-brand="${p.brand}" onclick="showPerfumeDetail(${p.id})">
             <div class="product-image">
                 ${p.image ? `<img src="${getImageSrc(p.image)}" alt="${p.name}">` : '<i class="fas fa-glass-martini-alt"></i>'}
-                ${p.badge ? `<span class="product-badge">${p.badge}</span>` : ''}
+                <span class="product-badge ${isDisp ? 'badge-disp' : 'badge-indisp'}">${isDisp ? 'Disponible' : 'Indisponible'}</span>
             </div>
             <div class="product-info">
                 <div class="product-brand">${p.brand}</div>
@@ -103,8 +105,8 @@ function renderProducts(productsArray, containerId) {
                     <button class="btn-add" onclick="event.stopPropagation(); addToCart(${p.id})">Ajouter</button>
                 </div>
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 }
 
 function getImageSrc(image) {
@@ -143,6 +145,8 @@ function showPerfumeDetail(productId) {
 function renderPerfumeDetail(p) {
     const container = document.getElementById('parfumeDetailContent');
     if (!container) return;
+    const isDisp = !p.badge || p.badge === 'Disponible';
+    const monthly = Math.round(p.price / 3);
     container.innerHTML = `
         <div class="back-link" onclick="showPage('catalogue')">
             <i class="fas fa-arrow-left"></i> Retour au catalogue
@@ -150,7 +154,7 @@ function renderPerfumeDetail(p) {
         <div class="perfume-detail-wrapper">
             <div class="perfume-detail-image">
                 ${p.image ? `<img src="${getImageSrc(p.image)}" alt="${p.name}">` : '<i class="fas fa-glass-martini-alt"></i>'}
-                ${p.badge ? `<span class="perfume-detail-badge">${p.badge}</span>` : ''}
+                <span class="perfume-detail-badge ${isDisp ? 'badge-disp' : 'badge-indisp'}">${isDisp ? 'Disponible' : 'Indisponible'}</span>
             </div>
             <div class="perfume-detail-info">
                 <div class="perfume-detail-category">${p.category}</div>
@@ -159,7 +163,8 @@ function renderPerfumeDetail(p) {
                 ${p.note ? renderStars(p.note) : ''}
                 <p class="perfume-detail-desc">${p.desc}</p>
                 <div class="perfume-detail-price">${formatPrice(p.price)}</div>
-                <button class="btn btn-gold" onclick="addToCart(${p.id}); showPerfumeDetail(${p.id})">Ajouter au panier</button>
+                ${isDisp ? `<div class="perfume-installment"><i class="fas fa-credit-card"></i> Payable en 3x <strong>${formatPrice(monthly)}</strong>/mois sans frais</div>` : ''}
+                ${isDisp ? `<button class="btn btn-gold" onclick="addToCart(${p.id}); showPerfumeDetail(${p.id})">Ajouter au panier</button>` : '<button class="btn btn-disabled" disabled>Indisponible</button>'}
             </div>
         </div>
     `;
@@ -420,6 +425,7 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
     }
 
     const processImage = (src) => {
+        const status = document.getElementById('adminStatus').value;
         const newProduct = {
             id: getNextId(),
             brand: document.getElementById('adminBrand').value.trim(),
@@ -428,7 +434,7 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
             desc: document.getElementById('adminDesc').value.trim(),
             price: parseInt(document.getElementById('adminPrice').value),
             note: 4.0,
-            badge: document.getElementById('adminBadge').value.trim() || '',
+            badge: status === 'Indisponible' ? 'Indisponible' : '',
             image: src
         };
         products.push(newProduct);
@@ -460,22 +466,28 @@ function renderEditList() {
         container.innerHTML = '<p style="color:var(--gray);text-align:center;padding:40px 0;">Aucun parfum à modifier.</p>';
         return;
     }
-    container.innerHTML = products.map(p => `
+    container.innerHTML = products.map(p => {
+        const isDisp = !p.badge || p.badge === 'Disponible';
+        return `
         <div class="admin-edit-item" data-id="${p.id}">
             <img class="admin-edit-img" src="${getImageSrc(p.image)}" alt="${p.name}" onerror="this.src=''; this.style.background='var(--black)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'">
             <div class="admin-edit-info">
                 <div class="edit-name">${p.name}</div>
-                <div class="edit-brand">${p.brand}</div>
+                <div class="edit-brand">${p.brand} · <span style="color:${isDisp ? '#22c55e' : '#D4AF37'}">${isDisp ? 'Disponible' : 'Indisponible'}</span></div>
             </div>
             <div class="admin-edit-actions">
                 <input type="file" accept="image/*" class="edit-photo-input" style="display:none" data-id="${p.id}">
                 <button class="edit-photo-btn" onclick="editPhoto(${p.id})" title="Changer photo"><i class="fas fa-camera"></i></button>
+                <select class="edit-status-select" data-id="${p.id}">
+                    <option value="Disponible" ${isDisp ? 'selected' : ''}>Disponible</option>
+                    <option value="Indisponible" ${!isDisp ? 'selected' : ''}>Indisponible</option>
+                </select>
                 <input type="number" class="edit-price-input" value="${p.price}" min="0" data-id="${p.id}">
                 <button class="edit-save" onclick="editSave(${p.id})">Sauver</button>
                 <button class="edit-del" onclick="editDelete(${p.id})"><i class="fas fa-trash"></i></button>
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 }
 
 // Edit photo
@@ -502,11 +514,12 @@ function editPhoto(id) {
     };
 }
 
-// Edit save (price)
+// Edit save (price + status)
 function editSave(id) {
-    const input = document.querySelector(`.edit-price-input[data-id="${id}"]`);
-    if (!input) return;
-    const newPrice = parseInt(input.value);
+    const priceInput = document.querySelector(`.edit-price-input[data-id="${id}"]`);
+    const statusSelect = document.querySelector(`.edit-status-select[data-id="${id}"]`);
+    if (!priceInput) return;
+    const newPrice = parseInt(priceInput.value);
     if (isNaN(newPrice) || newPrice < 0) {
         showToast('Prix invalide');
         return;
@@ -514,11 +527,12 @@ function editSave(id) {
     const product = products.find(p => p.id === id);
     if (product) {
         product.price = newPrice;
+        product.badge = statusSelect && statusSelect.value === 'Indisponible' ? 'Indisponible' : '';
         saveAdminProducts();
         renderFeatured();
         renderCatalogue();
         updateCartUI();
-        showToast(`Prix de "${product.name}" mis à jour`);
+        showToast(`"${product.name}" mis à jour`);
     }
 }
 
