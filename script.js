@@ -310,25 +310,6 @@ function getAdminProducts() {
 
 function saveAdminProducts() {
     localStorage.setItem('dareloutour_admin_products', JSON.stringify(products));
-    showExportCode();
-}
-
-function generateExportCode() {
-    const code = 'const products = [\n' + products.map(p => {
-        const img = p.image && (p.image.startsWith('data:') || p.image.startsWith('http'))
-            ? p.image
-            : (p.image || '');
-        const badge = p.badge || '';
-        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}" }`;
-    }).join(',\n') + '\n];';
-    return code;
-}
-
-function showExportCode() {
-    const container = document.getElementById('adminExportCode');
-    if (container) {
-        container.textContent = generateExportCode();
-    }
 }
 
 function loadProducts() {
@@ -379,29 +360,34 @@ document.getElementById('adminBtn').addEventListener('click', () => {
 function closeAdmin() {
     document.getElementById('adminOverlay').classList.remove('open');
     document.getElementById('adminModal').classList.remove('open');
-    document.getElementById('adminExportSection').style.display = 'none';
 }
 document.getElementById('adminClose').addEventListener('click', closeAdmin);
 document.getElementById('adminOverlay').addEventListener('click', closeAdmin);
 
-document.getElementById('adminExportBtn').addEventListener('click', () => {
-    const section = document.getElementById('adminExportSection');
-    section.style.display = section.style.display === 'none' ? 'block' : 'none';
-    if (section.style.display === 'block') showExportCode();
-});
+document.getElementById('adminDlBtn').addEventListener('click', () => {
+    const prodCode = products.map(p => {
+        const img = p.image && (p.image.startsWith('data:') || p.image.startsWith('http'))
+            ? p.image
+            : (p.image || '');
+        const badge = p.badge || '';
+        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}" }`;
+    }).join(',\n');
+    const newProductsBlock = `const products = [\n${prodCode}\n];`;
 
-document.getElementById('adminCopyBtn').addEventListener('click', () => {
-    const code = document.getElementById('adminExportCode').textContent;
-    navigator.clipboard.writeText(code).then(() => {
-        showToast('Code copié ! Colle-le dans script.js et upload sur GitHub.');
+    fetch('script.js').then(r => r.text()).then(code => {
+        const updated = code.replace(/const products = \[[\s\S]*?\];/, newProductsBlock);
+        const blob = new Blob([updated], { type: 'application/javascript' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'script.js';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        showToast('✅ script.js téléchargé ! Upload-le sur GitHub.');
     }).catch(() => {
-        const textarea = document.createElement('textarea');
-        textarea.value = code;
-        document.body.appendChild(textarea);
-        textarea.select();
-        document.execCommand('copy');
-        textarea.remove();
-        showToast('Code copié ! Colle-le dans script.js et upload sur GitHub.');
+        showToast('Erreur de téléchargement. Réessaie.');
     });
 });
 

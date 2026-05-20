@@ -1019,10 +1019,10 @@ ul {
     align-items: center;
     gap: 10px;
 }
-.admin-export-btn {
-    background: none;
-    border: 1px solid rgba(212,175,55,0.3);
-    color: var(--gold);
+.admin-dl-btn {
+    background: var(--gold);
+    border: none;
+    color: var(--black);
     width: 36px;
     height: 36px;
     border-radius: 6px;
@@ -1033,71 +1033,9 @@ ul {
     align-items: center;
     justify-content: center;
 }
-.admin-export-btn:hover {
-    background: var(--gold);
-    color: var(--black);
-}
-
-.admin-export-section {
-    border-bottom: 1px solid rgba(212,175,55,0.1);
-    padding: 12px 18px;
-    background: rgba(212,175,55,0.03);
-}
-.admin-export-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 0.8rem;
-    color: var(--gray);
-}
-.admin-export-header strong {
-    color: var(--gold);
-}
-.admin-copy-btn {
-    background: var(--gold);
-    border: none;
-    color: var(--black);
-    padding: 5px 14px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-.admin-copy-btn:hover {
+.admin-dl-btn:hover {
     background: var(--gold-light);
-}
-#adminExportCode {
-    background: var(--black);
-    color: var(--gold-light);
-    padding: 12px 14px;
-    border-radius: 6px;
-    font-size: 0.75rem;
-    font-family: 'Courier New', monospace;
-    white-space: pre;
-    overflow-x: auto;
-    max-height: 200px;
-    overflow-y: auto;
-    border: 1px solid rgba(212,175,55,0.08);
-    line-height: 1.5;
-}
-@media (max-width: 768px) {
-    #adminExportCode {
-        font-size: 0.65rem;
-        padding: 10px;
-        max-height: 150px;
-    }
-    .admin-export-header {
-        flex-direction: column;
-        gap: 6px;
-        align-items: flex-start;
-    }
+    transform: scale(1.05);
 }
 
 /* Edit list */
