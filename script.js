@@ -146,7 +146,6 @@ function renderPerfumeDetail(p) {
     const container = document.getElementById('parfumeDetailContent');
     if (!container) return;
     const isDisp = !p.badge || p.badge === 'Disponible';
-    const monthly = Math.round(p.price / 3);
     container.innerHTML = `
         <div class="back-link" onclick="showPage('catalogue')">
             <i class="fas fa-arrow-left"></i> Retour au catalogue
@@ -163,7 +162,6 @@ function renderPerfumeDetail(p) {
                 ${p.note ? renderStars(p.note) : ''}
                 <p class="perfume-detail-desc">${p.desc}</p>
                 <div class="perfume-detail-price">${formatPrice(p.price)}</div>
-                ${isDisp ? `<div class="perfume-installment"><i class="fas fa-credit-card"></i> Payable en 3x <strong>${formatPrice(monthly)}</strong>/mois sans frais</div>` : ''}
                 ${isDisp ? `<button class="btn btn-gold" onclick="addToCart(${p.id}); showPerfumeDetail(${p.id})">Ajouter au panier</button>` : '<button class="btn btn-disabled" disabled>Indisponible</button>'}
             </div>
         </div>

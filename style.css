@@ -599,26 +599,6 @@ ul {
     border-radius: 25px;
 }
 
-.perfume-installment {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--gray);
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-    padding: 10px 16px;
-    background: rgba(212,175,55,0.05);
-    border: 1px solid rgba(212,175,55,0.1);
-    border-radius: 8px;
-}
-.perfume-installment i {
-    color: var(--gold);
-    font-size: 1.1rem;
-}
-.perfume-installment strong {
-    color: var(--gold-light);
-}
-
 .btn-disabled {
     display: inline-block;
     padding: 14px 40px;
