@@ -265,30 +265,27 @@ document.getElementById('cartClose').addEventListener('click', closeCart);
 document.getElementById('cartOverlay').addEventListener('click', closeCart);
 
 // Checkout
-// Checkout - open modal
+// Checkout - go to commande page
 document.getElementById('checkoutBtn').addEventListener('click', () => {
     if (cart.length === 0) {
         showToast('Votre panier est vide');
         return;
     }
     populateWilayas();
-    updateCheckoutSummary();
-    document.getElementById('checkoutOverlay').classList.add('open');
-    document.getElementById('checkoutModal').classList.add('open');
+    updateRecap();
+    showPage('commande');
     closeCart();
 });
 
-function closeCheckout() {
-    document.getElementById('checkoutOverlay').classList.remove('open');
-    document.getElementById('checkoutModal').classList.remove('open');
-}
-document.getElementById('checkoutClose').addEventListener('click', closeCheckout);
-document.getElementById('checkoutOverlay').addEventListener('click', closeCheckout);
-
-function updateCheckoutSummary() {
-    const container = document.getElementById('checkoutSummary');
-    const items = cart.map(i => `${i.name} x${i.qty}`).join(', ');
-    container.innerHTML = `<i class="fas fa-shopping-bag"></i> <strong>${getCartCount()} article(s)</strong> : ${items}<br><i class="fas fa-money-bill-wave"></i> Total : <strong>${formatPrice(getCartTotal())}</strong>`;
+function updateRecap() {
+    const container = document.getElementById('commandeRecapItems');
+    container.innerHTML = cart.map(i => `
+        <div class="commande-recap-item">
+            <span>${i.name} x${i.qty}</span>
+            <span>${formatPrice(i.price * i.qty)}</span>
+        </div>
+    `).join('');
+    document.getElementById('commandeRecapTotal').textContent = formatPrice(getCartTotal());
 }
 
 const wilayas = [
@@ -302,7 +299,7 @@ const wilayas = [
 ];
 
 function populateWilayas() {
-    const select = document.getElementById('checkoutWilaya');
+    const select = document.getElementById('cmdWilaya');
     if (select.options.length > 1) return;
     wilayas.forEach(w => {
         const opt = document.createElement('option');
@@ -312,30 +309,20 @@ function populateWilayas() {
     });
 }
 
-// Checkout form submit
-document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+document.getElementById('commandeForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    const prenom = document.getElementById('checkoutPrenom').value.trim();
-    const nom = document.getElementById('checkoutNom').value.trim();
-    const phone = document.getElementById('checkoutPhone').value.trim();
-    const wilaya = document.getElementById('checkoutWilaya').value;
-    const commune = document.getElementById('checkoutCommune').value.trim();
-
-    const order = {
-        date: new Date().toLocaleString('fr-FR'),
-        client: { prenom, nom, phone, wilaya, commune },
-        items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
-        total: getCartTotal()
-    };
-
-    console.log('Nouvelle commande:', order);
+    const prenom = document.getElementById('cmdPrenom').value.trim();
+    const nom = document.getElementById('cmdNom').value.trim();
+    const phone = document.getElementById('cmdPhone').value.trim();
+    const wilaya = document.getElementById('cmdWilaya').value;
+    const commune = document.getElementById('cmdCommune').value.trim();
 
     showToast(`✅ Commande confirmée ${prenom} ! Nous vous contacterons au ${phone}.`);
     cart = [];
     saveCart();
     updateCartUI();
-    closeCheckout();
-    document.getElementById('checkoutForm').reset();
+    document.getElementById('commandeForm').reset();
+    showPage('accueil');
 });
 
 // Contact form
