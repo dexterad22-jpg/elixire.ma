@@ -1,35 +1,4 @@
-const products = [
-    // === Jean Paul Gaultier ===
-    { id: 1, brand: "Jean Paul Gaultier", name: "Le Male", category: "oriental", desc: "Le classique iconique au bouquet aromatique.", price: 18500, note: 4.8, badge: "Iconique", image: "jgp1.jpg" },
-    { id: 2, brand: "Jean Paul Gaultier", name: "Le Male Le Parfum", category: "oriental", desc: "Une version plus intense et cuirée.", price: 22000, note: 4.7, badge: "Premium", image: "jgp2.jpg" },
-
-    // === Valentino ===
-    { id: 3, brand: "Valentino", name: "Born in Roma Donna", category: "floral", desc: "Une florientale moderne à la vanille et au jasmin.", price: 22000, note: 4.5, badge: "Luxueux", image: "val1.jpg" },
-    { id: 4, brand: "Valentino", name: "Born in Roma Uomo", category: "boise", desc: "Un boisé épicé à la violette et au vétiver.", price: 20000, note: 4.4, badge: "", image: "val2.jpg" },
-
-    // === Rasasi ===
-    { id: 5, brand: "Rasasi", name: "Hawas", category: "frais", desc: "Un fougère aquatique frais et énergisant.", price: 12500, note: 4.3, badge: "Populaire", image: "ras1.jpg" },
-
-    // === Armani ===
-    { id: 6, brand: "Armani", name: "Acqua di Gio", category: "frais", desc: "L'essence intemporelle de la Méditerranée.", price: 19500, note: 4.7, badge: "Légende", image: "arm1.jpg" },
-    { id: 7, brand: "Armani", name: "Acqua di Gio Profumo", category: "boise", desc: "Un marin boisé profond et sensuel.", price: 23000, note: 4.8, badge: "Best-seller", image: "arm2.jpg" },
-
-    // === Xerjoff ===
-    { id: 8, brand: "Xerjoff", name: "Naxos", category: "oriental", desc: "Un tabac doux et mielleux d'une élégance rare.", price: 35000, note: 4.9, badge: "Premium", image: "xer1.jpg" },
-
-    // === Louis Vuitton ===
-    { id: 9, brand: "Louis Vuitton", name: "Imagination", category: "frais", desc: "Un voyage olfactif aux notes d'agrumes et de thé.", price: 45000, note: 4.6, badge: "Exclusif", image: "lv1.jpg" },
-
-    // === Dior ===
-    { id: 10, brand: "Dior", name: "Sauvage", category: "boise", desc: "Une fougère aromatique brute et noble.", price: 21000, note: 4.8, badge: "Best-seller", image: "dior1.jpg" },
-    { id: 11, brand: "Dior", name: "Sauvage Elixir", category: "oriental", desc: "Une concentration extrême de notes épicées.", price: 29000, note: 4.9, badge: "Premium", image: "dior2.jpg" },
-    { id: 12, brand: "Dior", name: "Homme Intense", category: "boise", desc: "Un boisé ambré à l'iris et au cuir.", price: 23000, note: 4.6, badge: "Iconique", image: "dior3.jpg" },
-
-    // === Chanel ===
-    { id: 13, brand: "Chanel", name: "Bleu de Chanel", category: "boise", desc: "Un boisé aromatique profond et élégant.", price: 23000, note: 4.7, badge: "Iconique", image: "chan1.jpg" },
-    { id: 14, brand: "Chanel", name: "Allure Homme Sport", category: "frais", desc: "Une fraîcheur énergique et sensuelle.", price: 21000, note: 4.5, badge: "", image: "chan2.jpg" },
-    { id: 15, brand: "Chanel", name: "Coco Mademoiselle", category: "floral", desc: "Un oriental floral moderne et audacieux.", price: 24000, note: 4.8, badge: "Légende", image: "chan3.jpg" }
-];
+const products = [];
 
 let cart = JSON.parse(localStorage.getItem('dareloutour_cart') || '[]');
 
@@ -528,7 +497,7 @@ function editDelete(id) {
     }
 }
 
-// Load admin data on startup
+// Load saved products
 loadProducts();
 renderFeatured();
 renderCatalogue();
