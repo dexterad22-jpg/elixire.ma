@@ -301,6 +301,45 @@
         </div>
     </div>
 
+    <!-- Checkout Modal -->
+    <div class="checkout-overlay" id="checkoutOverlay"></div>
+    <div class="checkout-modal" id="checkoutModal">
+        <div class="checkout-header">
+            <h3><i class="fas fa-clipboard-list"></i> Finaliser la commande</h3>
+            <button class="checkout-close" id="checkoutClose"><i class="fas fa-times"></i></button>
+        </div>
+        <form id="checkoutForm" class="checkout-body">
+            <div class="checkout-row">
+                <div class="checkout-group">
+                    <label><i class="fas fa-user"></i> Prénom</label>
+                    <input type="text" id="checkoutPrenom" placeholder="Votre prénom" required>
+                </div>
+                <div class="checkout-group">
+                    <label><i class="fas fa-user"></i> Nom</label>
+                    <input type="text" id="checkoutNom" placeholder="Votre nom" required>
+                </div>
+            </div>
+            <div class="checkout-group">
+                <label><i class="fas fa-phone-alt"></i> Numéro de téléphone</label>
+                <input type="tel" id="checkoutPhone" placeholder="ex: 0555 12 34 56" required>
+            </div>
+            <div class="checkout-row">
+                <div class="checkout-group">
+                    <label><i class="fas fa-map-marker-alt"></i> Wilaya</label>
+                    <select id="checkoutWilaya" required>
+                        <option value="">Sélectionnez une wilaya</option>
+                    </select>
+                </div>
+                <div class="checkout-group">
+                    <label><i class="fas fa-city"></i> Commune</label>
+                    <input type="text" id="checkoutCommune" placeholder="Votre commune" required>
+                </div>
+            </div>
+            <div class="checkout-summary" id="checkoutSummary"></div>
+            <button type="submit" class="btn btn-gold checkout-submit"><i class="fas fa-check-circle"></i> Confirmer la commande</button>
+        </form>
+    </div>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">

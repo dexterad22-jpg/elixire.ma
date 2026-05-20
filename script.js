@@ -265,17 +265,77 @@ document.getElementById('cartClose').addEventListener('click', closeCart);
 document.getElementById('cartOverlay').addEventListener('click', closeCart);
 
 // Checkout
+// Checkout - open modal
 document.getElementById('checkoutBtn').addEventListener('click', () => {
     if (cart.length === 0) {
         showToast('Votre panier est vide');
         return;
     }
-    const total = formatPrice(getCartTotal());
-    showToast(`Commande de ${getCartCount()} article(s) - Total: ${total}. Nous vous contacterons !`);
+    populateWilayas();
+    updateCheckoutSummary();
+    document.getElementById('checkoutOverlay').classList.add('open');
+    document.getElementById('checkoutModal').classList.add('open');
+    closeCart();
+});
+
+function closeCheckout() {
+    document.getElementById('checkoutOverlay').classList.remove('open');
+    document.getElementById('checkoutModal').classList.remove('open');
+}
+document.getElementById('checkoutClose').addEventListener('click', closeCheckout);
+document.getElementById('checkoutOverlay').addEventListener('click', closeCheckout);
+
+function updateCheckoutSummary() {
+    const container = document.getElementById('checkoutSummary');
+    const items = cart.map(i => `${i.name} x${i.qty}`).join(', ');
+    container.innerHTML = `<i class="fas fa-shopping-bag"></i> <strong>${getCartCount()} article(s)</strong> : ${items}<br><i class="fas fa-money-bill-wave"></i> Total : <strong>${formatPrice(getCartTotal())}</strong>`;
+}
+
+const wilayas = [
+    "Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa","Biskra","Béchar","Blida","Bouira",
+    "Tamanrasset","Tébessa","Tlemcen","Tiaret","Tizi Ouzou","Alger","Djelfa","Jijel","Sétif","Saïda",
+    "Skikda","Sidi Bel Abbès","Annaba","Guelma","Constantine","Médéa","Mostaganem","Msila","Mascara",
+    "Ouargla","Oran","El Bayadh","Illizi","Bordj Bou Arreridj","Boumerdès","El Tarf","Tindouf",
+    "Tissemsilt","El Oued","Khenchela","Souk Ahras","Tipaza","Mila","Aïn Defla","Naâma","Aïn Témouchent",
+    "Ghardaïa","Relizane","Timimoun","Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès","In Salah",
+    "In Guezzam","Touggourt","Djanet","El M'Ghair","El Meniaa"
+];
+
+function populateWilayas() {
+    const select = document.getElementById('checkoutWilaya');
+    if (select.options.length > 1) return;
+    wilayas.forEach(w => {
+        const opt = document.createElement('option');
+        opt.value = w;
+        opt.textContent = w;
+        select.appendChild(opt);
+    });
+}
+
+// Checkout form submit
+document.getElementById('checkoutForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const prenom = document.getElementById('checkoutPrenom').value.trim();
+    const nom = document.getElementById('checkoutNom').value.trim();
+    const phone = document.getElementById('checkoutPhone').value.trim();
+    const wilaya = document.getElementById('checkoutWilaya').value;
+    const commune = document.getElementById('checkoutCommune').value.trim();
+
+    const order = {
+        date: new Date().toLocaleString('fr-FR'),
+        client: { prenom, nom, phone, wilaya, commune },
+        items: cart.map(i => ({ name: i.name, qty: i.qty, price: i.price })),
+        total: getCartTotal()
+    };
+
+    console.log('Nouvelle commande:', order);
+
+    showToast(`✅ Commande confirmée ${prenom} ! Nous vous contacterons au ${phone}.`);
     cart = [];
     saveCart();
     updateCartUI();
-    setTimeout(closeCart, 2000);
+    closeCheckout();
+    document.getElementById('checkoutForm').reset();
 });
 
 // Contact form
