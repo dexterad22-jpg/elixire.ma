@@ -464,11 +464,6 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
     const imgFile = document.getElementById('adminImageFile').files[0];
     const imgUrl = document.getElementById('adminImageUrl').value.trim();
 
-    if (!imgFile && !imgUrl) {
-        showToast('Veuillez ajouter une photo (fichier ou URL)');
-        return;
-    }
-
     const processImage = (src) => {
         const status = document.getElementById('adminStatus').value;
         const newProduct = {
@@ -480,7 +475,7 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
             price: parseInt(document.getElementById('adminPrice').value),
             note: 4.0,
             badge: status === 'Indisponible' ? 'Indisponible' : '',
-            image: src
+            image: src || ''
         };
         products.push(newProduct);
         saveAdminProducts();
@@ -489,7 +484,7 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
         renderFeatured();
         renderCatalogue();
         updateCartUI();
-        showToast(`"${newProduct.name}" ajouté avec succès !`);
+        showToast(`"${newProduct.name}" ajouté ! Clique sur 📥 pour partager.`);
     };
 
     if (imgFile) {
@@ -577,7 +572,7 @@ function editSave(id) {
         renderFeatured();
         renderCatalogue();
         updateCartUI();
-        showToast(`"${product.name}" mis à jour`);
+        showToast(`"${product.name}" mis à jour. Clique sur 📥 pour partager.`);
     }
 }
 
