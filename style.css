@@ -1779,7 +1779,7 @@ ul {
 
 /* ===== RESPONSIVE MOBILE ===== */
 
-/* Tablettes & petits Ã©crans */
+/* Tablettes & petits écrans */
 @media (max-width: 1024px) {
     .qualities-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2173,7 +2173,7 @@ ul {
     }
 }
 
-/* TrÃ¨s petits Ã©crans < 400px */
+/* Très petits écrans < 400px */
 @media (max-width: 400px) {
     .products-grid {
         grid-template-columns: 1fr;
