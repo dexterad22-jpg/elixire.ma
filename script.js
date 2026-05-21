@@ -1,8 +1,8 @@
 const products = [
-    { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisée au coco et à la fève tonka.", price: 22000, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg" },
-    { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisé aquatique vert à la noix de coco, figue et santal.", price: 23000, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg" },
-    { id: 3, brand: "Valentino", name: "Born in Roma Purple Melancholia", category: "boise", desc: "Un boisé aromatique à la cardamome, coco et amberwood.", price: 25000, note: 4.5, badge: "Indisponible", image: "val-purple.jpg" },
-    { id: 4, brand: "Rasasi", name: "Hawas Ice", category: "frais", desc: "Un aromatique frais à la pomme, bergamote, prune et musc.", price: 18000, note: 4.5, badge: "Indisponible", image: "hawas-ice.jpg" }
+    { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisÃ©e au coco et Ã  la fÃ¨ve tonka.", price: 22000, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg" },
+    { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisÃ© aquatique vert Ã  la noix de coco, figue et santal.", price: 23000, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg" },
+    { id: 3, brand: "Valentino", name: "Born in Roma Purple Melancholia", category: "boise", desc: "Un boisÃ© aromatique Ã  la cardamome, coco et amberwood.", price: 25000, note: 4.5, badge: "Indisponible", image: "val-purple.jpg" },
+    { id: 4, brand: "Rasasi", name: "Hawas Ice", category: "frais", desc: "Un aromatique frais Ã  la pomme, bergamote, prune et musc.", price: 18000, note: 4.5, badge: "Indisponible", image: "hawas-ice.jpg" }
 ];
 
 let cart = JSON.parse(localStorage.getItem('dareloutour_cart') || '[]');
@@ -125,7 +125,7 @@ function renderCatalogue(filter = 'all') {
     if (!container) return;
 
     if (filter === 'all') {
-        const catLabels = { oriental: 'Oriental', floral: 'Floral', boise: 'Boisé', frais: 'Fraîcheur' };
+        const catLabels = { oriental: 'Oriental', floral: 'Floral', boise: 'BoisÃ©', frais: 'FraÃ®cheur' };
         const cats = ['oriental', 'floral', 'boise', 'frais'];
         let html = '';
         cats.forEach(cat => {
@@ -218,7 +218,7 @@ function addToCart(productId) {
 
     saveCart();
     updateCartUI();
-    showToast(`"${product.name}" ajouté au panier`);
+    showToast(`"${product.name}" ajoutÃ© au panier`);
 }
 
 function removeFromCart(productId) {
@@ -270,7 +270,7 @@ function updateCartUI() {
                 <div class="cart-item-name">${item.name}</div>
                 <div class="cart-item-price">${formatPrice(item.price)}</div>
                 <div class="cart-item-qty">
-                    <button onclick="changeQty(${item.id}, -1)">−</button>
+                    <button onclick="changeQty(${item.id}, -1)">âˆ’</button>
                     <span>${item.qty}</span>
                     <button onclick="changeQty(${item.id}, 1)">+</button>
                 </div>
@@ -323,12 +323,12 @@ function updateRecap() {
 }
 
 const wilayas = [
-    "Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","Béjaïa","Biskra","Béchar","Blida","Bouira",
-    "Tamanrasset","Tébessa","Tlemcen","Tiaret","Tizi Ouzou","Alger","Djelfa","Jijel","Sétif","Saïda",
-    "Skikda","Sidi Bel Abbès","Annaba","Guelma","Constantine","Médéa","Mostaganem","Msila","Mascara",
-    "Ouargla","Oran","El Bayadh","Illizi","Bordj Bou Arreridj","Boumerdès","El Tarf","Tindouf",
-    "Tissemsilt","El Oued","Khenchela","Souk Ahras","Tipaza","Mila","Aïn Defla","Naâma","Aïn Témouchent",
-    "Ghardaïa","Relizane","Timimoun","Bordj Badji Mokhtar","Ouled Djellal","Béni Abbès","In Salah",
+    "Adrar","Chlef","Laghouat","Oum El Bouaghi","Batna","BÃ©jaÃ¯a","Biskra","BÃ©char","Blida","Bouira",
+    "Tamanrasset","TÃ©bessa","Tlemcen","Tiaret","Tizi Ouzou","Alger","Djelfa","Jijel","SÃ©tif","SaÃ¯da",
+    "Skikda","Sidi Bel AbbÃ¨s","Annaba","Guelma","Constantine","MÃ©dÃ©a","Mostaganem","Msila","Mascara",
+    "Ouargla","Oran","El Bayadh","Illizi","Bordj Bou Arreridj","BoumerdÃ¨s","El Tarf","Tindouf",
+    "Tissemsilt","El Oued","Khenchela","Souk Ahras","Tipaza","Mila","AÃ¯n Defla","NaÃ¢ma","AÃ¯n TÃ©mouchent",
+    "GhardaÃ¯a","Relizane","Timimoun","Bordj Badji Mokhtar","Ouled Djellal","BÃ©ni AbbÃ¨s","In Salah",
     "In Guezzam","Touggourt","Djanet","El M'Ghair","El Meniaa"
 ];
 
@@ -351,7 +351,7 @@ document.getElementById('commandeForm').addEventListener('submit', (e) => {
     const wilaya = document.getElementById('cmdWilaya').value;
     const commune = document.getElementById('cmdCommune').value.trim();
 
-    showToast(`✅ Commande confirmée ${prenom} ! Nous vous contacterons au ${phone}.`);
+    showToast(`âœ… Commande confirmÃ©e ${prenom} ! Nous vous contacterons au ${phone}.`);
     cart = [];
     saveCart();
     updateCartUI();
@@ -362,14 +362,14 @@ document.getElementById('commandeForm').addEventListener('submit', (e) => {
 // Contact form
 document.getElementById('contactForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    showToast('Message envoyé avec succès ! Nous vous répondrons rapidement.');
+    showToast('Message envoyÃ© avec succÃ¨s ! Nous vous rÃ©pondrons rapidement.');
     e.target.reset();
 });
 
 // Newsletter
 document.getElementById('newsletterForm').addEventListener('submit', (e) => {
     e.preventDefault();
-    showToast('Inscription à la newsletter réussie !');
+    showToast('Inscription Ã  la newsletter rÃ©ussie !');
     e.target.reset();
 });
 
@@ -416,10 +416,31 @@ function getGithubToken() {
 function saveGithubToken(token) {
     localStorage.setItem('dareloutour_github_token', token);
 }
+function clearGithubToken() {
+    localStorage.removeItem('dareloutour_github_token');
+}
 
 function saveAdminProducts() {
     localStorage.setItem('dareloutour_admin_products', JSON.stringify(products));
     syncToGithub();
+}
+
+function b64Encode(str) {
+    const bytes = new TextEncoder().encode(str);
+    let bin = '';
+    for (let i = 0; i < bytes.length; i++) {
+        bin += String.fromCharCode(bytes[i]);
+    }
+    return btoa(bin);
+}
+
+function b64Decode(str) {
+    const bin = atob(str.replace(/\n/g, ''));
+    const bytes = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+        bytes[i] = bin.charCodeAt(i);
+    }
+    return new TextDecoder().decode(bytes);
 }
 
 function syncToGithub() {
@@ -427,7 +448,7 @@ function syncToGithub() {
     if (!token) return;
 
     const status = document.getElementById('adminTokenStatus');
-    if (status) { status.textContent = '⏳ Synchronisation...'; status.className = 'admin-token-status'; }
+    if (status) { status.textContent = 'â³ Synchronisation...'; status.className = 'admin-token-status'; }
 
     const prodCode = products.map(p => {
         const img = p.image && (p.image.startsWith('data:') || p.image.startsWith('http'))
@@ -441,13 +462,13 @@ function syncToGithub() {
     const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' };
 
     fetch(api, { headers })
-        .then(r => r.json())
+        .then(r => { if (!r.ok) { return r.json().then(e => { throw new Error(e.message); }); } return r.json(); })
         .then(data => {
-            const oldContent = atob(data.content.replace(/\n/g, ''));
+            const oldContent = b64Decode(data.content);
             const newContent = oldContent.replace(/const products = \[[\s\S]*?\];/, newProductsBlock);
             const body = {
-                message: 'Mise à jour des produits depuis le panneau admin',
-                content: btoa(newContent),
+                message: 'Mise Ã  jour des produits depuis le panneau admin',
+                content: b64Encode(newContent),
                 sha: data.sha,
                 branch: GITHUB_BRANCH
             };
@@ -456,7 +477,7 @@ function syncToGithub() {
         .then(r => {
             if (status) {
                 if (r.ok) {
-                    status.textContent = '✅ Synchronisé sur GitHub ! Actualise le site.';
+                    status.textContent = 'âœ… SynchronisÃ© sur GitHub ! Actualise le site.';
                     status.className = 'admin-token-status ok';
                 } else {
                     return r.json().then(e => { throw new Error(e.message); });
@@ -465,7 +486,7 @@ function syncToGithub() {
         })
         .catch(err => {
             if (status) {
-                status.textContent = '❌ Erreur: ' + err.message;
+                status.textContent = 'âŒ Erreur: ' + err.message;
                 status.className = 'admin-token-status err';
             }
         });
@@ -544,9 +565,9 @@ document.getElementById('adminDlBtn').addEventListener('click', () => {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        showToast('✅ script.js téléchargé ! Upload-le sur GitHub.');
+        showToast('âœ… script.js tÃ©lÃ©chargÃ© ! Upload-le sur GitHub.');
     }).catch(() => {
-        showToast('Erreur de téléchargement. Réessaie.');
+        showToast('Erreur de tÃ©lÃ©chargement. RÃ©essaie.');
     });
 });
 
@@ -564,23 +585,31 @@ document.getElementById('adminTokenTest').addEventListener('click', () => {
     const token = document.getElementById('adminTokenInput').value.trim();
     const status = document.getElementById('adminTokenStatus');
     if (!token) {
-        status.textContent = '❌ Entre un token';
+        status.textContent = 'âŒ Entre un token';
         status.className = 'admin-token-status err';
         return;
     }
-    saveGithubToken(token);
-    status.textContent = '⏳ Vérification...';
+    status.textContent = 'â³ VÃ©rification...';
     status.className = 'admin-token-status';
-    fetch('https://api.github.com/user', { headers: { Authorization: `Bearer ${token}` } })
+    const testUrl = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}`;
+    fetch(testUrl, { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' } })
         .then(r => {
             if (r.ok) {
-                status.textContent = '✅ Token valide ! Les produits seront synchronisés sur GitHub.';
+                saveGithubToken(token);
+                status.textContent = 'âœ… Token valide ! Les produits seront synchronisÃ©s sur GitHub.';
                 status.className = 'admin-token-status ok';
             } else {
-                status.textContent = '❌ Token invalide';
+                status.textContent = 'âŒ Token invalide ou sans accÃ¨s au repo';
                 status.className = 'admin-token-status err';
             }
         });
+});
+
+document.getElementById('adminTokenReset').addEventListener('click', () => {
+    clearGithubToken();
+    document.getElementById('adminTokenInput').value = getGithubToken();
+    document.getElementById('adminTokenStatus').textContent = 'ðŸ”„ Token rÃ©initialisÃ© (fallback)';
+    document.getElementById('adminTokenStatus').className = 'admin-token-status';
 });
 
 // Tab switch
@@ -620,7 +649,7 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
         renderFeatured();
         renderCatalogue();
         updateCartUI();
-        showToast(`"${newProduct.name}" ajouté ! Clique sur 📥 pour partager.`);
+        showToast(`"${newProduct.name}" ajoutÃ© ! Clique sur ðŸ“¥ pour partager.`);
     };
 
     if (imgFile) {
@@ -639,7 +668,7 @@ function renderEditList() {
     const container = document.getElementById('adminEditList');
     if (!container) return;
     if (products.length === 0) {
-        container.innerHTML = '<p style="color:var(--gray);text-align:center;padding:40px 0;">Aucun parfum à modifier.</p>';
+        container.innerHTML = '<p style="color:var(--gray);text-align:center;padding:40px 0;">Aucun parfum Ã  modifier.</p>';
         return;
     }
     container.innerHTML = products.map(p => {
@@ -649,7 +678,7 @@ function renderEditList() {
             <img class="admin-edit-img" src="${getImageSrc(p.image)}" alt="${p.name}" onerror="this.src=''; this.style.background='var(--black)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'">
             <div class="admin-edit-info">
                 <div class="edit-name">${p.name}</div>
-                <div class="edit-brand">${p.brand} · <span style="color:${isDisp ? '#22c55e' : '#D4AF37'}">${isDisp ? 'Disponible' : 'Indisponible'}</span></div>
+                <div class="edit-brand">${p.brand} Â· <span style="color:${isDisp ? '#22c55e' : '#D4AF37'}">${isDisp ? 'Disponible' : 'Indisponible'}</span></div>
             </div>
             <div class="admin-edit-actions">
                 <input type="file" accept="image/*" class="edit-photo-input" style="display:none" data-id="${p.id}">
@@ -683,7 +712,7 @@ function editPhoto(id) {
                 renderEditList();
                 renderFeatured();
                 renderCatalogue();
-                showToast('Photo mise à jour');
+                showToast('Photo mise Ã  jour');
             }
         };
         reader.readAsDataURL(file);
@@ -708,7 +737,7 @@ function editSave(id) {
         renderFeatured();
         renderCatalogue();
         updateCartUI();
-        showToast(`"${product.name}" mis à jour. Clique sur 📥 pour partager.`);
+        showToast(`"${product.name}" mis Ã  jour. Clique sur ðŸ“¥ pour partager.`);
     }
 }
 
@@ -725,7 +754,7 @@ function editDelete(id) {
         renderFeatured();
         renderCatalogue();
         updateCartUI();
-        showToast(`"${product.name}" supprimé`);
+        showToast(`"${product.name}" supprimÃ©`);
     }
 }
 
