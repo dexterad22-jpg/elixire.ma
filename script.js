@@ -870,10 +870,24 @@ renderFeatured();
 renderCatalogue();
 updateCartUI();
 
-// Debug - verify script ran
+// Debug - verify script ran & force visibility
 (function() {
     const el = document.createElement('div');
     el.style.cssText = 'position:fixed;bottom:10px;left:10px;z-index:9999;background:#22c55e;color:#000;padding:6px 12px;border-radius:4px;font:12px sans-serif';
     el.textContent = '✓ Script OK (' + products.length + ' prod)';
     document.body.appendChild(el);
+    // Force all product cards visible
+    setTimeout(function() {
+        document.querySelectorAll('.product-card').forEach(function(card) {
+            card.style.setProperty('background', '#2a2a2a', 'important');
+            card.style.setProperty('border', '3px solid #d4af37', 'important');
+            card.style.setProperty('display', 'block', 'important');
+            card.style.setProperty('visibility', 'visible', 'important');
+            card.style.setProperty('opacity', '1', 'important');
+        });
+        document.querySelectorAll('.products-grid').forEach(function(grid) {
+            grid.style.setProperty('display', 'grid', 'important');
+            grid.style.setProperty('visibility', 'visible', 'important');
+        });
+    }, 100);
 })();
