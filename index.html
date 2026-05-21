@@ -398,52 +398,16 @@
     </footer>
 
     <script>
-(function(){
-    var red = document.createElement('div');
-    red.style.cssText = 'position:fixed;top:0;left:0;z-index:99999;background:#f00;color:#fff;padding:5px 10px;font:14px sans-serif;font-size:13px';
-    red.textContent = 'JS INLINE: OK';
-    document.body.appendChild(red);
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'script.js?_=' + Date.now(), true);
-    xhr.onload = function() {
-        if (xhr.status === 200) {
-            red.textContent += ' | FETCHED ' + xhr.responseText.length + 'b';
-            try {
-                eval(xhr.responseText);
-                red.textContent += ' | EVAL OK';
-                // Debug: check containers and force products visible
-                var feat = document.getElementById('featuredProducts');
-                var cat = document.getElementById('catalogueProducts');
-                var info = [];
-                if (feat) {
-                    info.push('feat=' + feat.children.length);
-                    // Force products visible
-                    for (var i = 0; i < feat.children.length; i++) {
-                        feat.children[i].style.setProperty('background', '#333', 'important');
-                        feat.children[i].style.setProperty('border', '3px solid red', 'important');
-                        feat.children[i].style.setProperty('opacity', '1', 'important');
-                        feat.children[i].style.setProperty('display', 'block', 'important');
-                    }
-                } else info.push('featMISSING');
-                if (cat) info.push('cat=' + cat.children.length);
-                else info.push('catMISSING');
-                info.push('prods=' + (typeof products !== 'undefined' ? products.length : 'UNDEF'));
-                var active = document.querySelector('.page.active-page');
-                info.push('page=' + (active ? active.id : 'NONE'));
-                red.textContent += ' | ' + info.join(' ');
-            } catch(e) {
-                red.textContent += ' | EVAL ERR: ' + e.message;
-            }
-        } else {
-            red.textContent += ' | FETCH FAIL: ' + xhr.status;
-        }
-    };
-    xhr.onerror = function() {
-        red.textContent += ' | NETWORK ERROR';
-    };
-    xhr.send();
-})();
-</script>
+        // Simple inline test to confirm JS runs
+        (function(){
+            var d = document.createElement('div');
+            d.id = 'inlineTest';
+            d.style.cssText = 'position:fixed;top:0;left:0;z-index:99999;background:#f00;color:#fff;padding:4px 10px;font:13px sans-serif';
+            d.textContent = 'JS: OK';
+            document.body.appendChild(d);
+        })();
+    </script>
+    <script src="script.js?v=2"></script>
 </body>
 
 </html>
