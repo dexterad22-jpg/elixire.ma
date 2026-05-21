@@ -411,19 +411,25 @@
             try {
                 eval(xhr.responseText);
                 red.textContent += ' | EVAL OK';
-                // Debug: check containers and rendering
+                // Debug: check containers and force products visible
                 var feat = document.getElementById('featuredProducts');
                 var cat = document.getElementById('catalogueProducts');
                 var info = [];
-                if (feat) info.push('featExists=' + feat.children.length);
-                else info.push('featMISSING');
-                if (cat) info.push('catExists=' + cat.children.length);
+                if (feat) {
+                    info.push('feat=' + feat.children.length);
+                    // Force products visible
+                    for (var i = 0; i < feat.children.length; i++) {
+                        feat.children[i].style.setProperty('background', '#333', 'important');
+                        feat.children[i].style.setProperty('border', '3px solid red', 'important');
+                        feat.children[i].style.setProperty('opacity', '1', 'important');
+                        feat.children[i].style.setProperty('display', 'block', 'important');
+                    }
+                } else info.push('featMISSING');
+                if (cat) info.push('cat=' + cat.children.length);
                 else info.push('catMISSING');
                 info.push('prods=' + (typeof products !== 'undefined' ? products.length : 'UNDEF'));
-                info.push('renderFeat=' + (typeof renderFeatured !== 'undefined' ? 'defined' : 'MISSING'));
-                // Check active page
                 var active = document.querySelector('.page.active-page');
-                info.push('activePage=' + (active ? active.id : 'NONE'));
+                info.push('page=' + (active ? active.id : 'NONE'));
                 red.textContent += ' | ' + info.join(' ');
             } catch(e) {
                 red.textContent += ' | EVAL ERR: ' + e.message;
