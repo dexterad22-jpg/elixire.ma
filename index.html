@@ -214,9 +214,18 @@
         <div class="admin-header">
             <h3><i class="fas fa-cog"></i> Gestion des Parfums</h3>
             <div class="admin-header-actions">
-                <button class="admin-dl-btn" id="adminDlBtn" title="Télécharger script.js à uploader sur GitHub"><i class="fas fa-download"></i></button>
+                <button class="admin-dl-btn" id="adminTokenBtn" title="Configurer le token GitHub"><i class="fas fa-key"></i></button>
+                <button class="admin-dl-btn" id="adminDlBtn" title="Télécharger script.js"><i class="fas fa-download"></i></button>
                 <button class="admin-close" id="adminClose"><i class="fas fa-times"></i></button>
             </div>
+        </div>
+        <div class="admin-token-section" id="adminTokenSection" style="display:none">
+            <div class="admin-token-header">
+                <span><i class="fab fa-github"></i> Token GitHub</span>
+                <button class="admin-token-test" id="adminTokenTest">Tester</button>
+            </div>
+            <input type="password" id="adminTokenInput" placeholder="Colle ton GitHub token ici...">
+            <div class="admin-token-status" id="adminTokenStatus"></div>
         </div>
         <div class="admin-tabs">
             <button class="admin-tab active" data-tab="add">Ajouter</button>
