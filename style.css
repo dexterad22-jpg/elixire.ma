@@ -1118,6 +1118,24 @@ ul {
     background: var(--gold);
     color: var(--black);
 }
+.admin-token-reset {
+    background: rgba(255,80,80,0.1);
+    border: 1px solid rgba(255,80,80,0.2);
+    color: #ff5050;
+    padding: 4px 10px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition);
+    margin-left: 6px;
+}
+.admin-token-reset:hover {
+    background: #ff5050;
+    color: var(--white);
+}
 #adminTokenInput {
     width: 100%;
     padding: 10px 14px;
@@ -1761,7 +1779,7 @@ ul {
 
 /* ===== RESPONSIVE MOBILE ===== */
 
-/* Tablettes & petits écrans */
+/* Tablettes & petits Ã©crans */
 @media (max-width: 1024px) {
     .qualities-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -2155,7 +2173,7 @@ ul {
     }
 }
 
-/* Très petits écrans < 400px */
+/* TrÃ¨s petits Ã©crans < 400px */
 @media (max-width: 400px) {
     .products-grid {
         grid-template-columns: 1fr;
