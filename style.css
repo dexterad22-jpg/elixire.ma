@@ -316,8 +316,8 @@ ul {
 }
 
 .product-card {
-    background: var(--black);
-    border: 1px solid rgba(212, 175, 55, 0.1);
+    background: var(--black-light);
+    border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 12px;
     overflow: hidden;
     transition: var(--transition);
