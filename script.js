@@ -364,8 +364,70 @@ function getAdminProducts() {
     return null;
 }
 
+const GITHUB_OWNER = "dexterad22-jpg";
+const GITHUB_REPO = "min";
+const GITHUB_BRANCH = "main";
+
+function getGithubToken() {
+    return localStorage.getItem('dareloutour_github_token') || '';
+}
+
+function saveGithubToken(token) {
+    localStorage.setItem('dareloutour_github_token', token);
+}
+
 function saveAdminProducts() {
     localStorage.setItem('dareloutour_admin_products', JSON.stringify(products));
+    syncToGithub();
+}
+
+function syncToGithub() {
+    const token = getGithubToken();
+    if (!token) return;
+
+    const status = document.getElementById('adminTokenStatus');
+    if (status) { status.textContent = '⏳ Synchronisation...'; status.className = 'admin-token-status'; }
+
+    const prodCode = products.map(p => {
+        const img = p.image && (p.image.startsWith('data:') || p.image.startsWith('http'))
+            ? p.image : (p.image || '');
+        const badge = p.badge || '';
+        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}" }`;
+    }).join(',\n');
+    const newProductsBlock = `const products = [\n${prodCode}\n];`;
+
+    const api = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/script.js?ref=${GITHUB_BRANCH}`;
+    const headers = { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' };
+
+    fetch(api, { headers })
+        .then(r => r.json())
+        .then(data => {
+            const oldContent = atob(data.content.replace(/\n/g, ''));
+            const newContent = oldContent.replace(/const products = \[[\s\S]*?\];/, newProductsBlock);
+            const body = {
+                message: 'Mise à jour des produits depuis le panneau admin',
+                content: btoa(newContent),
+                sha: data.sha,
+                branch: GITHUB_BRANCH
+            };
+            return fetch(api, { method: 'PUT', headers, body: JSON.stringify(body) });
+        })
+        .then(r => {
+            if (status) {
+                if (r.ok) {
+                    status.textContent = '✅ Synchronisé sur GitHub ! Actualise le site.';
+                    status.className = 'admin-token-status ok';
+                } else {
+                    return r.json().then(e => { throw new Error(e.message); });
+                }
+            }
+        })
+        .catch(err => {
+            if (status) {
+                status.textContent = '❌ Erreur: ' + err.message;
+                status.className = 'admin-token-status err';
+            }
+        });
 }
 
 function loadProducts() {
@@ -445,6 +507,39 @@ document.getElementById('adminDlBtn').addEventListener('click', () => {
     }).catch(() => {
         showToast('Erreur de téléchargement. Réessaie.');
     });
+});
+
+// Token button
+document.getElementById('adminTokenBtn').addEventListener('click', () => {
+    const section = document.getElementById('adminTokenSection');
+    section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    if (section.style.display === 'block') {
+        document.getElementById('adminTokenInput').value = getGithubToken();
+        document.getElementById('adminTokenInput').focus();
+    }
+});
+
+document.getElementById('adminTokenTest').addEventListener('click', () => {
+    const token = document.getElementById('adminTokenInput').value.trim();
+    const status = document.getElementById('adminTokenStatus');
+    if (!token) {
+        status.textContent = '❌ Entre un token';
+        status.className = 'admin-token-status err';
+        return;
+    }
+    saveGithubToken(token);
+    status.textContent = '⏳ Vérification...';
+    status.className = 'admin-token-status';
+    fetch('https://api.github.com/user', { headers: { Authorization: `Bearer ${token}` } })
+        .then(r => {
+            if (r.ok) {
+                status.textContent = '✅ Token valide ! Les produits seront synchronisés sur GitHub.';
+                status.className = 'admin-token-status ok';
+            } else {
+                status.textContent = '❌ Token invalide';
+                status.className = 'admin-token-status err';
+            }
+        });
 });
 
 // Tab switch
