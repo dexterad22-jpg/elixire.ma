@@ -1,3 +1,16 @@
+window.onerror = function(m, src, line, col, err) {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;bottom:40px;left:10px;z-index:99999;background:#ef4444;color:#fff;padding:10px 16px;border-radius:6px;font:bold 13px/1.4 sans-serif;max-width:80vw;white-space:pre-wrap;box-shadow:0 4px 12px rgba(0,0,0,.5)';
+    d.textContent = m + ' [' + line + ':' + col + ']';
+    document.body.appendChild(d);
+};
+window.addEventListener('unhandledrejection', function(e) {
+    var d = document.createElement('div');
+    d.style.cssText = 'position:fixed;bottom:80px;left:10px;z-index:99999;background:#f97316;color:#fff;padding:10px 16px;border-radius:6px;font:bold 13px/1.4 sans-serif;max-width:80vw;white-space:pre-wrap;box-shadow:0 4px 12px rgba(0,0,0,.5)';
+    d.textContent = 'PROMISE: ' + (e.reason && e.reason.message ? e.reason.message : String(e.reason));
+    document.body.appendChild(d);
+});
+
 const products = [
     { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisée au coco et à la fève tonka.", price: 22000, prices: {50:22000, 30:15000, 10:8000}, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg" },
     { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisé aquatique vert à la noix de coco, figue et santal.", price: 23000, prices: {50:23000, 30:16000, 10:9000}, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg" },
