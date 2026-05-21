@@ -453,46 +453,6 @@ ul {
     margin-left: 5px;
 }
 
-.product-sizes {
-    display: flex;
-    gap: 6px;
-    margin: 10px 0;
-    flex-wrap: wrap;
-}
-.size-btn {
-    flex: 1;
-    min-width: 60px;
-    background: rgba(212,175,55,0.05);
-    border: 1px solid rgba(212,175,55,0.15);
-    border-radius: 6px;
-    padding: 6px 4px;
-    cursor: pointer;
-    color: var(--gray);
-    font-size: 0.65rem;
-    font-weight: 500;
-    text-align: center;
-    transition: var(--transition);
-    line-height: 1.3;
-}
-.size-btn span {
-    display: block;
-    font-size: 0.7rem;
-    color: var(--gold);
-    font-weight: 600;
-}
-.size-btn.active {
-    background: rgba(212,175,55,0.15);
-    border-color: var(--gold);
-    color: var(--gold);
-}
-.size-btn.active span {
-    color: var(--gold-light);
-}
-.size-btn:hover {
-    border-color: var(--gold);
-    background: rgba(212,175,55,0.1);
-}
-
 .product-bottom {
     display: flex;
     align-items: center;
@@ -707,20 +667,6 @@ ul {
     font-weight: 300;
     line-height: 1.8;
     margin-bottom: 30px;
-}
-
-.detail-sizes {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-.detail-sizes .size-btn {
-    min-width: 80px;
-    padding: 10px 8px;
-    font-size: 0.8rem;
-}
-.detail-sizes .size-btn span {
-    font-size: 0.85rem;
 }
 
 .perfume-detail-price {
@@ -1257,27 +1203,17 @@ ul {
     gap: 8px;
     flex-wrap: wrap;
 }
-.edit-prices {
+.edit-price-wrapper {
     display: flex;
+    align-items: center;
     gap: 6px;
-    align-items: center;
 }
-.edit-prices label {
+.edit-price-wrapper label {
     display: flex;
     align-items: center;
-    gap: 3px;
+    gap: 4px;
     font-size: 0.7rem;
     color: var(--gray);
-}
-.edit-prices input {
-    width: 70px;
-    padding: 4px 6px;
-    background: var(--black);
-    border: 1px solid rgba(212,175,55,0.15);
-    border-radius: 4px;
-    color: var(--white);
-    font-size: 0.75rem;
-    outline: none;
 }
 .admin-edit-actions input {
     width: 90px;
@@ -1482,12 +1418,6 @@ ul {
     color: var(--white);
     margin-bottom: 5px;
 }
-.cart-item-ml {
-    font-size: 0.75rem;
-    color: var(--gold);
-    font-weight: 500;
-}
-
 .cart-item-price {
     font-size: 0.9rem;
     color: var(--gold);
@@ -2003,7 +1933,24 @@ ul {
     .product-stars span {
         font-size: 0.7rem;
     }
-    .product-price {
+.product-size-label {
+    font-size: 0.8rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin-right: 4px;
+}
+.detail-size-label {
+    font-size: 1.1rem;
+    color: var(--gold);
+    font-weight: 500;
+    margin-right: 6px;
+}
+.cart-item-size {
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-weight: 500;
+}
+.product-price {
         font-size: 1.1rem;
     }
     .btn-add {
