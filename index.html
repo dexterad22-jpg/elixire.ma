@@ -397,8 +397,47 @@
         </div>
     </footer>
 
-    <script>document.body.innerHTML += '<div style="position:fixed;top:0;left:0;z-index:99999;background:#f00;color:#fff;padding:5px 10px;font:14px sans-serif">JS INLINE: OK</div>';</script>
-    <script src="script.js"></script>
+    <script>
+(function(){
+    var red = document.createElement('div');
+    red.style.cssText = 'position:fixed;top:0;left:0;z-index:99999;background:#f00;color:#fff;padding:5px 10px;font:14px sans-serif;font-size:13px';
+    red.textContent = 'JS INLINE: OK';
+    document.body.appendChild(red);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'script.js?_=' + Date.now(), true);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            red.textContent += ' | FETCHED ' + xhr.responseText.length + 'b';
+            try {
+                eval(xhr.responseText);
+                red.textContent += ' | EVAL OK';
+                // Debug: check containers and rendering
+                var feat = document.getElementById('featuredProducts');
+                var cat = document.getElementById('catalogueProducts');
+                var info = [];
+                if (feat) info.push('featExists=' + feat.children.length);
+                else info.push('featMISSING');
+                if (cat) info.push('catExists=' + cat.children.length);
+                else info.push('catMISSING');
+                info.push('prods=' + (typeof products !== 'undefined' ? products.length : 'UNDEF'));
+                info.push('renderFeat=' + (typeof renderFeatured !== 'undefined' ? 'defined' : 'MISSING'));
+                // Check active page
+                var active = document.querySelector('.page.active-page');
+                info.push('activePage=' + (active ? active.id : 'NONE'));
+                red.textContent += ' | ' + info.join(' ');
+            } catch(e) {
+                red.textContent += ' | EVAL ERR: ' + e.message;
+            }
+        } else {
+            red.textContent += ' | FETCH FAIL: ' + xhr.status;
+        }
+    };
+    xhr.onerror = function() {
+        red.textContent += ' | NETWORK ERROR';
+    };
+    xhr.send();
+})();
+</script>
 </body>
 
 </html>
