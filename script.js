@@ -557,9 +557,8 @@ function syncToGithub() {
         })
         .then(r => {
             if (r.ok) {
-                localStorage.removeItem('dareloutour_admin_products');
                 if (status) {
-                    status.textContent = '✅ Synchronisé sur GitHub ! Actualise le site.';
+                    status.textContent = '✅ Synchronisé sur GitHub !';
                     status.className = 'admin-token-status ok';
                 }
             } else {
@@ -579,10 +578,12 @@ function syncToGithub() {
 function loadProducts() {
     const adminData = getAdminProducts();
     if (adminData && adminData.length) {
-        const hardcodedIds = products.map(p => p.id);
         adminData.forEach(p => {
-            if (!hardcodedIds.includes(p.id)) {
+            const idx = products.findIndex(x => x.id === p.id);
+            if (idx === -1) {
                 products.push(p);
+            } else {
+                products[idx] = p;
             }
         });
     }
