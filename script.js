@@ -10,7 +10,8 @@ function getPrice(p, ml) {
     return p.price;
 }
 
-let cart = JSON.parse(localStorage.getItem('dareloutour_cart') || '[]');
+let cart = [];
+try { cart = JSON.parse(localStorage.getItem('dareloutour_cart') || '[]'); } catch(e) { cart = []; localStorage.removeItem('dareloutour_cart'); }
 
 // Navigation
 document.querySelectorAll('.nav-link').forEach(link => {
@@ -454,8 +455,10 @@ function showToast(message) {
 
 // ===== ADMIN PANEL =====
 function getAdminProducts() {
-    const stored = localStorage.getItem('dareloutour_admin_products');
-    if (stored) return JSON.parse(stored);
+    try {
+        const stored = localStorage.getItem('dareloutour_admin_products');
+        if (stored) return JSON.parse(stored);
+    } catch(e) { localStorage.removeItem('dareloutour_admin_products'); }
     return null;
 }
 
