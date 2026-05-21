@@ -12,16 +12,11 @@ window.addEventListener('unhandledrejection', function(e) {
 });
 
 const products = [
-    { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisée au coco et à la fève tonka.", price: 22000, prices: {50:22000, 30:15000, 10:8000}, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg" },
-    { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisé aquatique vert à la noix de coco, figue et santal.", price: 23000, prices: {50:23000, 30:16000, 10:9000}, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg" },
-    { id: 3, brand: "Valentino", name: "Born in Roma Purple Melancholia", category: "boise", desc: "Un boisé aromatique à la cardamome, coco et amberwood.", price: 25000, prices: {50:25000, 30:17000, 10:10000}, note: 4.5, badge: "Indisponible", image: "val-purple.jpg" },
-    { id: 4, brand: "Rasasi", name: "Hawas Ice", category: "frais", desc: "Un aromatique frais à la pomme, bergamote, prune et musc.", price: 18000, prices: {50:18000, 30:12000, 10:7000}, note: 4.5, badge: "Indisponible", image: "hawas-ice.jpg" }
+    { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisée au coco et à la fève tonka.", sizeLabel: "125ml", price: 22000, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg" },
+    { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisé aquatique vert à la noix de coco, figue et santal.", sizeLabel: "125ml", price: 23000, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg" },
+    { id: 3, brand: "Valentino", name: "Born in Roma Purple Melancholia", category: "boise", desc: "Un boisé aromatique à la cardamome, coco et amberwood.", sizeLabel: "125ml", price: 25000, note: 4.5, badge: "Indisponible", image: "val-purple.jpg" },
+    { id: 4, brand: "Rasasi", name: "Hawas Ice", category: "frais", desc: "Un aromatique frais à la pomme, bergamote, prune et musc.", sizeLabel: "125ml", price: 18000, note: 4.5, badge: "Indisponible", image: "hawas-ice.jpg" }
 ];
-
-function getPrice(p, ml) {
-    if (p.prices && p.prices[ml]) return p.prices[ml];
-    return p.price;
-}
 
 let cart = [];
 try { cart = JSON.parse(localStorage.getItem('dareloutour_cart') || '[]'); } catch(e) { cart = []; localStorage.removeItem('dareloutour_cart'); }
@@ -109,7 +104,7 @@ function renderProducts(productsArray, containerId) {
     container.innerHTML = productsArray.map(p => {
         const isDisp = !p.badge || p.badge === 'Disponible';
         return `
-        <div class="product-card" data-id="${p.id}" data-brand="${p.brand}" onclick="showPerfumeDetail(${p.id})" data-selected-ml="50">
+        <div class="product-card" data-id="${p.id}" data-brand="${p.brand}" onclick="showPerfumeDetail(${p.id})">
             <div class="product-image">
                 ${p.image ? `<img src="${getImageSrc(p.image)}" alt="${p.name}">` : '<i class="fas fa-glass-martini-alt"></i>'}
                 <span class="product-badge ${isDisp ? 'badge-disp' : 'badge-indisp'}">${isDisp ? 'Disponible' : 'Indisponible'}</span>
@@ -119,35 +114,13 @@ function renderProducts(productsArray, containerId) {
                 <h3 class="product-name">${p.name}</h3>
                 <p class="product-desc">${p.desc}</p>
                 ${p.note ? renderStars(p.note) : ''}
-                <div class="product-sizes">
-                    ${[50, 30, 10].map(ml => `
-                        <button class="size-btn ${ml === 50 ? 'active' : ''}" onclick="event.stopPropagation(); selectSize(${p.id}, ${ml})">${ml}ml<br><span>${formatPrice(getPrice(p, ml))}</span></button>
-                    `).join('')}
-                </div>
                 <div class="product-bottom">
-                    <span class="product-price" id="price-${p.id}">${formatPrice(getPrice(p, 50))}</span>
+                    <span class="product-price"><span class="product-size-label">${p.sizeLabel || ''}</span> ${formatPrice(p.price)}</span>
                     <button class="btn-add" onclick="event.stopPropagation(); addToCart(${p.id})">Ajouter</button>
                 </div>
             </div>
         </div>`;
     }).join('');
-}
-
-function selectSize(productId, ml) {
-    const card = document.querySelector(`.product-card[data-id="${productId}"]`);
-    if (!card) return;
-    card.dataset.selectedMl = ml;
-    card.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-    card.querySelectorAll('.size-btn').forEach(b => {
-        if (b.textContent.trim().startsWith(ml + 'ml')) b.classList.add('active');
-    });
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        ['price-', 'cprice-'].forEach(prefix => {
-            const el = document.getElementById(prefix + productId);
-            if (el) el.textContent = formatPrice(getPrice(product, ml));
-        });
-    }
 }
 
 function getImageSrc(image) {
@@ -176,7 +149,7 @@ function renderCatalogue(filter = 'all') {
             items.forEach(p => {
                 const isDisp = !p.badge || p.badge === 'Disponible';
                 html += `
-                    <div class="product-card" data-id="${p.id}" data-brand="${p.brand}" onclick="showPerfumeDetail(${p.id})" data-selected-ml="50">
+                    <div class="product-card" data-id="${p.id}" data-brand="${p.brand}" onclick="showPerfumeDetail(${p.id})">
                         <div class="product-image">
                             ${p.image ? `<img src="${getImageSrc(p.image)}" alt="${p.name}">` : '<i class="fas fa-glass-martini-alt"></i>'}
                             <span class="product-badge ${isDisp ? 'badge-disp' : 'badge-indisp'}">${isDisp ? 'Disponible' : 'Indisponible'}</span>
@@ -186,13 +159,8 @@ function renderCatalogue(filter = 'all') {
                             <h3 class="product-name">${p.name}</h3>
                             <p class="product-desc">${p.desc}</p>
                             ${p.note ? renderStars(p.note) : ''}
-                            <div class="product-sizes">
-                                ${[50, 30, 10].map(ml => `
-                                    <button class="size-btn ${ml === 50 ? 'active' : ''}" onclick="event.stopPropagation(); selectSize(${p.id}, ${ml})">${ml}ml<br><span>${formatPrice(getPrice(p, ml))}</span></button>
-                                `).join('')}
-                            </div>
                             <div class="product-bottom">
-                                <span class="product-price" id="cprice-${p.id}">${formatPrice(getPrice(p, 50))}</span>
+                                <span class="product-price"><span class="product-size-label">${p.sizeLabel || ''}</span> ${formatPrice(p.price)}</span>
                                 <button class="btn-add" onclick="event.stopPropagation(); addToCart(${p.id})">Ajouter</button>
                             </div>
                         </div>
@@ -232,7 +200,7 @@ function renderPerfumeDetail(p) {
         <div class="back-link" onclick="showPage('catalogue')">
             <i class="fas fa-arrow-left"></i> Retour au catalogue
         </div>
-        <div class="perfume-detail-wrapper" data-selected-ml="50">
+        <div class="perfume-detail-wrapper">
             <div class="perfume-detail-image">
                 ${p.image ? `<img src="${getImageSrc(p.image)}" alt="${p.name}">` : '<i class="fas fa-glass-martini-alt"></i>'}
                 <span class="perfume-detail-badge ${isDisp ? 'badge-disp' : 'badge-indisp'}">${isDisp ? 'Disponible' : 'Indisponible'}</span>
@@ -243,31 +211,11 @@ function renderPerfumeDetail(p) {
                 <h2 class="perfume-detail-name">${p.name}</h2>
                 ${p.note ? renderStars(p.note) : ''}
                 <p class="perfume-detail-desc">${p.desc}</p>
-                <div class="detail-sizes">
-                    ${[50, 30, 10].map(ml => `
-                        <button class="size-btn ${ml === 50 ? 'active' : ''}" onclick="detailSelectSize(${p.id}, ${ml})">${ml}ml<br><span>${formatPrice(getPrice(p, ml))}</span></button>
-                    `).join('')}
-                </div>
-                <div class="perfume-detail-price" id="dprice-${p.id}">${formatPrice(getPrice(p, 50))}</div>
+                <div class="perfume-detail-price"><span class="detail-size-label">${p.sizeLabel || ''}</span> ${formatPrice(p.price)}</div>
                 ${isDisp ? `<button class="btn btn-gold" onclick="addToCart(${p.id}); showPerfumeDetail(${p.id})">Ajouter au panier</button>` : '<button class="btn btn-disabled" disabled>Indisponible</button>'}
             </div>
         </div>
     `;
-}
-
-function detailSelectSize(productId, ml) {
-    const wrapper = document.querySelector('.perfume-detail-wrapper');
-    if (!wrapper) return;
-    wrapper.dataset.selectedMl = ml;
-    wrapper.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
-    wrapper.querySelectorAll('.size-btn').forEach(b => {
-        if (b.textContent.trim().startsWith(ml + 'ml')) b.classList.add('active');
-    });
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        const el = document.getElementById('dprice-' + productId);
-        if (el) el.textContent = formatPrice(getPrice(product, ml));
-    }
 }
 
 // Cart functions
@@ -275,15 +223,11 @@ function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) return;
 
-    const card = document.querySelector(`.product-card[data-id="${productId}"]`);
-    const ml = card ? parseInt(card.dataset.selectedMl) || 50 : 50;
-    const price = getPrice(product, ml);
-
-    const existing = cart.find(item => item.id === productId && item.selectedMl === ml);
+    const existing = cart.find(item => item.id === productId);
     if (existing) {
         existing.qty += 1;
     } else {
-        cart.push({ ...product, price: price, qty: 1, selectedMl: ml });
+        cart.push({ ...product, qty: 1 });
     }
 
     saveCart();
@@ -291,18 +235,18 @@ function addToCart(productId) {
     showToast(`"${product.name}" ajouté au panier`);
 }
 
-function removeFromCart(productId, ml) {
-    cart = cart.filter(item => !(item.id === productId && (item.selectedMl || 50) === (ml || 50)));
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
     saveCart();
     updateCartUI();
 }
 
-function changeQty(productId, ml, delta) {
-    const item = cart.find(i => i.id === productId && (i.selectedMl || 50) === (ml || 50));
+function changeQty(productId, delta) {
+    const item = cart.find(i => i.id === productId);
     if (!item) return;
     item.qty += delta;
     if (item.qty <= 0) {
-        removeFromCart(productId, ml);
+        removeFromCart(productId);
         return;
     }
     saveCart();
@@ -332,20 +276,20 @@ function updateCartUI() {
     }
 
     container.innerHTML = cart.map(item => `
-        <div class="cart-item" data-ml="${item.selectedMl}">
+        <div class="cart-item">
             <div class="cart-item-img">
                 <i class="fas fa-glass-martini-alt"></i>
             </div>
             <div class="cart-item-info">
-                <div class="cart-item-name">${item.name} <span class="cart-item-ml">${item.selectedMl || 50}ml</span></div>
+                <div class="cart-item-name">${item.name} <span class="cart-item-size">${item.sizeLabel || ''}</span></div>
                 <div class="cart-item-price">${formatPrice(item.price)}</div>
                 <div class="cart-item-qty">
-                    <button onclick="changeQty(${item.id}, ${item.selectedMl || 50}, -1)">−</button>
+                    <button onclick="changeQty(${item.id}, -1)">−</button>
                     <span>${item.qty}</span>
-                    <button onclick="changeQty(${item.id}, ${item.selectedMl || 50}, 1)">+</button>
+                    <button onclick="changeQty(${item.id}, 1)">+</button>
                 </div>
             </div>
-            <button class="cart-item-remove" onclick="removeFromCart(${item.id}, ${item.selectedMl || 50})">
+            <button class="cart-item-remove" onclick="removeFromCart(${item.id})">
                 <i class="fas fa-trash-alt"></i>
             </button>
         </div>
@@ -385,7 +329,7 @@ function updateRecap() {
     const container = document.getElementById('commandeRecapItems');
     container.innerHTML = cart.map(i => `
         <div class="commande-recap-item">
-            <span>${i.name} (${i.selectedMl || 50}ml) x${i.qty}</span>
+            <span>${i.name} (${i.sizeLabel || ''}) x${i.qty}</span>
             <span>${formatPrice(i.price * i.qty)}</span>
         </div>
     `).join('');
@@ -526,13 +470,7 @@ function syncToGithub() {
         const img = p.image && (p.image.startsWith('data:') || p.image.startsWith('http'))
             ? p.image : (p.image || '');
         const badge = p.badge || '';
-        let pricesStr = '';
-        if (p.prices) {
-            pricesStr = `, prices: {50:${p.prices[50] !== undefined ? p.prices[50] : p.price}`;
-            pricesStr += `, 30:${p.prices[30] !== undefined ? p.prices[30] : 0}`;
-            pricesStr += `, 10:${p.prices[10] !== undefined ? p.prices[10] : 0}}`;
-        }
-        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}"${pricesStr} }`;
+        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", sizeLabel: "${p.sizeLabel || ''}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}" }`;
     }).join(',\n');
     const newProductsBlock = `const products = [\n${prodCode}\n];`;
 
@@ -632,13 +570,7 @@ document.getElementById('adminDlBtn').addEventListener('click', () => {
             ? p.image
             : (p.image || '');
         const badge = p.badge || '';
-        let pricesStr = '';
-        if (p.prices) {
-            pricesStr = `, prices: {50:${p.prices[50] !== undefined ? p.prices[50] : p.price}`;
-            pricesStr += `, 30:${p.prices[30] !== undefined ? p.prices[30] : 0}`;
-            pricesStr += `, 10:${p.prices[10] !== undefined ? p.prices[10] : 0}}`;
-        }
-        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}"${pricesStr} }`;
+        return `    { id: ${p.id}, brand: "${p.brand}", name: "${p.name}", category: "${p.category}", desc: "${p.desc}", sizeLabel: "${p.sizeLabel || ''}", price: ${p.price}, note: ${p.note}, badge: "${badge}", image: "${img}" }`;
     }).join(',\n');
     const newProductsBlock = `const products = [\n${prodCode}\n];`;
 
@@ -719,17 +651,16 @@ document.getElementById('adminAddForm').addEventListener('submit', function(e) {
 
     const processImage = (src) => {
         const status = document.getElementById('adminStatus').value;
-        const p50 = parseInt(document.getElementById('adminPrice50').value);
-        const p30 = parseInt(document.getElementById('adminPrice30').value);
-        const p10 = parseInt(document.getElementById('adminPrice10').value);
+        const price = parseInt(document.getElementById('adminPrice50').value);
+        const sizeLabel = document.getElementById('adminSizeLabel').value.trim();
         const newProduct = {
             id: getNextId(),
             brand: document.getElementById('adminBrand').value.trim(),
             name: document.getElementById('adminName').value.trim(),
+            sizeLabel: sizeLabel,
             category: document.getElementById('adminCategory').value,
             desc: document.getElementById('adminDesc').value.trim(),
-            price: p50,
-            prices: {50: p50, 30: p30, 10: p10},
+            price: price,
             note: 4.0,
             badge: status === 'Indisponible' ? 'Indisponible' : '',
             image: src || ''
@@ -765,9 +696,6 @@ function renderEditList() {
     }
     container.innerHTML = products.map(p => {
         const isDisp = !p.badge || p.badge === 'Disponible';
-        const p50 = (p.prices && p.prices[50] !== undefined) ? p.prices[50] : p.price;
-        const p30 = (p.prices && p.prices[30] !== undefined) ? p.prices[30] : 0;
-        const p10 = (p.prices && p.prices[10] !== undefined) ? p.prices[10] : 0;
         return `
         <div class="admin-edit-item" data-id="${p.id}">
             <img class="admin-edit-img" src="${getImageSrc(p.image)}" alt="${p.name}" onerror="this.src=''; this.style.background='var(--black)'; this.style.display='flex'; this.style.alignItems='center'; this.style.justifyContent='center'">
@@ -782,10 +710,9 @@ function renderEditList() {
                     <option value="Disponible" ${isDisp ? 'selected' : ''}>Disponible</option>
                     <option value="Indisponible" ${!isDisp ? 'selected' : ''}>Indisponible</option>
                 </select>
-                <div class="edit-prices">
-                    <label>50ml <input type="number" class="edit-price-input" value="${p50}" min="0" data-id="${p.id}" data-ml="50"></label>
-                    <label>30ml <input type="number" class="edit-price-input" value="${p30}" min="0" data-id="${p.id}" data-ml="30"></label>
-                    <label>10ml <input type="number" class="edit-price-input" value="${p10}" min="0" data-id="${p.id}" data-ml="10"></label>
+                <div class="edit-price-wrapper">
+                    <label>Taille <input type="text" class="edit-size-input" value="${p.sizeLabel || ''}" data-id="${p.id}"></label>
+                    <label>Prix <input type="number" class="edit-price-input" value="${p.price}" min="0" data-id="${p.id}"></label>
                 </div>
                 <button class="edit-save" onclick="editSave(${p.id})">Sauver</button>
                 <button class="edit-del" onclick="editDelete(${p.id})"><i class="fas fa-trash"></i></button>
@@ -818,24 +745,18 @@ function editPhoto(id) {
     };
 }
 
-// Edit save (price + status)
+// Edit save (price + size + status)
 function editSave(id) {
-    const inputs = document.querySelectorAll(`.edit-price-input[data-id="${id}"]`);
+    const priceInput = document.querySelector(`.edit-price-input[data-id="${id}"]`);
+    const sizeInput = document.querySelector(`.edit-size-input[data-id="${id}"]`);
     const statusSelect = document.querySelector(`.edit-status-select[data-id="${id}"]`);
-    if (!inputs.length) return;
-    const prices = {};
-    let valid = true;
-    inputs.forEach(inp => {
-        const ml = parseInt(inp.dataset.ml);
-        const val = parseInt(inp.value);
-        if (isNaN(val) || val < 0) { valid = false; }
-        prices[ml] = val;
-    });
-    if (!valid) { showToast('Prix invalide'); return; }
+    if (!priceInput || !sizeInput) return;
+    const val = parseInt(priceInput.value);
+    if (isNaN(val) || val < 0) { showToast('Prix invalide'); return; }
     const product = products.find(p => p.id === id);
     if (product) {
-        product.price = prices[50] || prices[Object.keys(prices)[0]];
-        product.prices = prices;
+        product.price = val;
+        product.sizeLabel = sizeInput.value.trim();
         product.badge = statusSelect && statusSelect.value === 'Indisponible' ? 'Indisponible' : '';
         saveAdminProducts();
         renderFeatured();
