@@ -856,3 +856,11 @@ loadProducts();
 renderFeatured();
 renderCatalogue();
 updateCartUI();
+
+// Debug - verify script ran
+(function() {
+    const el = document.createElement('div');
+    el.style.cssText = 'position:fixed;bottom:10px;left:10px;z-index:9999;background:#22c55e;color:#000;padding:6px 12px;border-radius:4px;font:12px sans-serif';
+    el.textContent = '✓ Script OK (' + products.length + ' prod)';
+    document.body.appendChild(el);
+})();
