@@ -1057,6 +1057,68 @@ ul {
     transform: scale(1.05);
 }
 
+.admin-token-section {
+    border-bottom: 1px solid rgba(212,175,55,0.1);
+    padding: 12px 18px;
+    background: rgba(0,0,0,0.3);
+}
+.admin-token-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+.admin-token-header i {
+    color: var(--gold);
+    margin-right: 6px;
+}
+.admin-token-header span {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.admin-token-test {
+    background: rgba(212,175,55,0.1);
+    border: 1px solid rgba(212,175,55,0.2);
+    color: var(--gold);
+    padding: 4px 14px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+.admin-token-test:hover {
+    background: var(--gold);
+    color: var(--black);
+}
+#adminTokenInput {
+    width: 100%;
+    padding: 10px 14px;
+    background: var(--black);
+    border: 1px solid rgba(212,175,55,0.15);
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: var(--white);
+    outline: none;
+    transition: var(--transition);
+}
+#adminTokenInput:focus {
+    border-color: var(--gold);
+}
+.admin-token-status {
+    font-size: 0.75rem;
+    margin-top: 6px;
+    min-height: 18px;
+}
+.admin-token-status.ok { color: #22c55e; }
+.admin-token-status.err { color: #ff4444; }
+
 /* Edit list */
 .admin-edit-item {
     display: flex;
