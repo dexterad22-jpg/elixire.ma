@@ -12,10 +12,11 @@ window.addEventListener('unhandledrejection', function(e) {
 });
 
 const products = [
-    { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisée au coco et à la fève tonka.", price: 22000, prices: {50:22000, 30:15000, 10:8000}, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg" },
-    { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisé aquatique vert à la noix de coco, figue et santal.", price: 23000, prices: {50:23000, 30:16000, 10:9000}, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg" },
-    { id: 3, brand: "Valentino", name: "Born in Roma Purple Melancholia", category: "boise", desc: "Un boisé aromatique à la cardamome, coco et amberwood.", price: 25000, prices: {50:25000, 30:17000, 10:10000}, note: 4.5, badge: "Indisponible", image: "val-purple.jpg" },
-    { id: 4, brand: "Rasasi", name: "Hawas Ice", category: "frais", desc: "Un aromatique frais à la pomme, bergamote, prune et musc.", price: 18000, prices: {50:18000, 30:12000, 10:7000}, note: 4.5, badge: "Indisponible", image: "hawas-ice.jpg" }
+    { id: 1, brand: "Jean Paul Gaultier", name: "Le Beau Le Parfum", category: "oriental", desc: "Version intense et boisée au coco et à la fève tonka.", price: 22000, note: 4.5, badge: "Indisponible", image: "jpg-lebeau.jpg", prices: {50:22000, 30:15000, 10:8000} },
+    { id: 2, brand: "Jean Paul Gaultier", name: "Le Beau Paradise Garden", category: "frais", desc: "Un boisé aquatique vert à la noix de coco, figue et santal.", price: 23000, note: 4.5, badge: "Indisponible", image: "jpg-paradise.jpg", prices: {50:23000, 30:16000, 10:9000} },
+    { id: 3, brand: "Valentino", name: "Born in Roma Purple Melancholia", category: "boise", desc: "Un boisé aromatique à la cardamome, coco et amberwood.", price: 25000, note: 4.5, badge: "Indisponible", image: "val-purple.jpg", prices: {50:25000, 30:17000, 10:10000} },
+    { id: 4, brand: "Rasasi", name: "Hawas Ice", category: "frais", desc: "Un aromatique frais à la pomme, bergamote, prune et musc.", price: 18000, note: 4.5, badge: "Indisponible", image: "hawas-ice.jpg", prices: {50:18000, 30:12000, 10:7000} },
+    { id: 5, brand: "Creed", name: "Aventus Creed", category: "oriental", desc: "Aventus by Creed is a Chypre Fruity fragrance for men. Aventus was launched in 2010. Aventus was created by Jean-Christophe Hérault and Erwin Creed. Top notes are Bergamot, Black Currant, Apple, Lemon and Pink Pepper; middle notes are Pineapple, Patchouli and Moroccan Jasmine; base notes are Birch, Musk, oak moss, Cedarwood and Ambroxan.", price: 50000, note: 4, badge: "Indisponible", image: "", prices: {50:50000, 30:36000, 10:12000} }
 ];
 
 function getPrice(p, ml) {
