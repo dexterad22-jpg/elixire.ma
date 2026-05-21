@@ -383,6 +383,28 @@ ul {
     color: var(--black);
 }
 
+.categorie-section {
+    margin-bottom: 50px;
+}
+.categorie-titre {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--gold);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(212,175,55,0.15);
+    letter-spacing: 2px;
+}
+@media (max-width: 768px) {
+    .categorie-titre {
+        font-size: 1.3rem;
+        margin-bottom: 14px;
+    }
+    .categorie-section {
+        margin-bottom: 30px;
+    }
+}
+
 .product-info {
     padding: 25px;
 }
