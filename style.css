@@ -940,35 +940,6 @@ ul {
     visibility: visible;
 }
 
-/* Size-price row in admin */
-.size-price-row {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    margin-bottom: 6px;
-}
-.size-price-row input[type="number"] {
-    flex: 1;
-    min-width: 0;
-}
-.size-price-row .add-size-btn,
-.size-price-row .rm-size-btn {
-    background: var(--gold);
-    color: var(--black);
-    border: none;
-    border-radius: 4px;
-    width: 30px;
-    height: 30px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    flex-shrink: 0;
-}
-.size-price-row .rm-size-btn {
-    background: #ef4444;
-    color: #fff;
-}
-
 .admin-modal {
     position: fixed;
     top: 50%; left: 50%;
