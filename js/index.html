@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elixire.ma - Parfumerie de Luxe</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="nav-logo">
+                <a href="#accueil">
+                    <img src="logo.jpg" alt="Elixire.ma" class="logo-icon">
+                    <span class="logo-text">Elixire.ma</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#accueil" class="nav-link active">Accueil</a></li>
+                <li><a href="#catalogue" class="nav-link">Parfumes</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="admin-btn" id="adminBtn" title="Gérer les parfums">
+                    <i class="fas fa-cog"></i>
+                </button>
+                <button class="cart-btn" id="cartBtn">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <section id="accueil" class="page active-page">
+        <div class="hero">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1 class="hero-title">Elixire.ma</h1>
+                <p class="hero-subtitle">L'art de la parfumerie orientale</p>
+                <p class="hero-desc">Des senteurs envoûtantes venues d'Orient, chaque flacon raconte une histoire
+                    millénaire.</p>
+                <a href="#catalogue" class="btn btn-gold">Découvrez nos parfums</a>
+            </div>
+        </div>
+
+        <section class="section featured">
+            <div class="container">
+                <h2 class="section-title">Nos Meilleures Ventes</h2>
+                <p class="section-subtitle">Des parfums d'exception sélectionnés pour vous</p>
+                <div class="products-grid" id="featuredProducts">
+                </div>
+            </div>
+        </section>
+
+        <section class="section qualities">
+            <div class="container">
+                <div class="qualities-grid">
+                    <div class="quality-card">
+                        <i class="fas fa-leaf"></i>
+                        <h3>Ingrédients Naturels</h3>
+                        <p>Des matières premières nobles venues du monde entier</p>
+                    </div>
+                    <div class="quality-card">
+                        <i class="fas fa-flask"></i>
+                        <h3>Fabrication Artisanale</h3>
+                        <p>Un savoir-faire traditionnel transmis depuis des générations</p>
+                    </div>
+                    <div class="quality-card">
+                        <i class="fas fa-gem"></i>
+                        <h3>Flacons Prestigieux</h3>
+                        <p>Un design élégant digne des plus grandes maisons</p>
+                    </div>
+                    <div class="quality-card">
+                        <i class="fas fa-truck"></i>
+                        <h3>Livraison Offerte</h3>
+                        <p>Partout dans le monde à partir de 150€ d'achat</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </section>
+
+    <section id="catalogue" class="page">
+        <div class="container section">
+            <h2 class="section-title">Nos Parfums</h2>
+            <p class="section-subtitle">Explorez notre collection de parfums d'exception</p>
+            <div class="filter-bar" id="filterBar">
+                <button class="filter-btn active" data-filter="all">Tous</button>
+                <button class="filter-btn" data-filter="oriental">Oriental</button>
+                <button class="filter-btn" data-filter="floral">Floral</button>
+                <button class="filter-btn" data-filter="boise">Boisé</button>
+                <button class="filter-btn" data-filter="frais">Fraîcheur</button>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="Rechercher un parfum...">
+            </div>
+            <div class="products-grid" id="catalogueProducts">
+            </div>
+        </div>
+    </section>
+
+    <section id="parfume-detail" class="page">
+        <div class="container section" id="parfumeDetailContent">
+        </div>
+    </section>
+
+    <section id="apropos" class="page">
+        <div class="container section">
+            <h2 class="section-title">À propos de Elixire.ma</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>Depuis des siècles, l'Orient est le berceau de la parfumerie. <strong>Elixire.ma</strong> (« La
+                        Maison des Parfums ») perpétue cette tradition avec passion et excellence.</p>
+                    <p>Notre maison sélectionne les meilleurs ingrédients : oud précieux, roses de Damas, ambre gris,
+                        musc blanc et bien d'autres trésors olfactifs. Chaque parfum est élaboré selon des méthodes
+                        artisanales transmises de génération en génération.</p>
+                    <p>Nous croyons que le parfum est bien plus qu'une fragrance — c'est une émotion, un souvenir, une
+                        signature invisible qui révèle l'essence de celui qui le porte.</p>
+                    <blockquote class="about-quote">
+                        "Le parfum est la mémoire sensible de l'âme."
+                    </blockquote>
+                </div>
+                <div class="about-stats">
+                    <div class="stat">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Années d'expertise</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-label">Parfums créés</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">15k+</span>
+                        <span class="stat-label">Clients satisfaits</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">30+</span>
+                        <span class="stat-label">Pays livrés</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="page">
+        <div class="container section">
+            <h2 class="section-title">Contactez-nous</h2>
+            <p class="section-subtitle">Une question ? Une commande spéciale ? Écrivez-nous</p>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>Adresse</h4>
+                            <p>12 Rue des Parfumeurs, Alger Centre<br>Algérie</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>Téléphone</h4>
+                            <p>+213 555 12 34 56</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <p>contact@elixire.ma</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>Horaires</h4>
+                            <p>Lun - Sam : 9h00 - 19h00</p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contactForm">
+                    <div class="form-group">
+                        <input type="text" id="name" placeholder="Votre nom" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="Votre email" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" placeholder="Sujet" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" rows="5" placeholder="Votre message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-gold">Envoyer le message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Modal -->
+    <div class="admin-overlay" id="adminOverlay"></div>
+    <div class="admin-modal" id="adminModal">
+        <div class="admin-header">
+            <h3><i class="fas fa-cog"></i> Gestion des Parfums</h3>
+            <div class="admin-header-actions">
+                <button class="admin-dl-btn" id="adminTokenBtn" title="Configurer le token GitHub"><i class="fas fa-key"></i></button>
+                <button class="admin-dl-btn" id="adminDlBtn" title="Télécharger script.js"><i class="fas fa-download"></i></button>
+                <button class="admin-close" id="adminClose"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="admin-token-section" id="adminTokenSection" style="display:none">
+            <div class="admin-token-header">
+                <span><i class="fab fa-github"></i> Token GitHub</span>
+                <div>
+                    <button class="admin-token-test" id="adminTokenTest">Tester</button>
+                    <button class="admin-token-reset" id="adminTokenReset">Réinitialiser</button>
+                </div>
+            </div>
+            <input type="password" id="adminTokenInput" placeholder="Colle ton GitHub token ici...">
+            <div class="admin-token-status" id="adminTokenStatus"></div>
+        </div>
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-tab="add">Ajouter</button>
+            <button class="admin-tab" data-tab="edit">Modifier</button>
+        </div>
+        <div class="admin-body">
+            <!-- Tab: Ajouter -->
+            <div class="admin-tab-content active" id="adminTabAdd">
+                <form id="adminAddForm">
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Marque</label>
+                            <input type="text" id="adminBrand" placeholder="ex: Dior" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Nom</label>
+                            <input type="text" id="adminName" placeholder="ex: Sauvage" required>
+                        </div>
+                    </div>
+                    <div class="admin-form-row">
+                        <div class="admin-form-group">
+                            <label>Catégorie</label>
+                            <select id="adminCategory">
+                                <option value="oriental">Oriental</option>
+                                <option value="floral">Floral</option>
+                                <option value="boise">Boisé</option>
+                                <option value="frais">Fraîcheur</option>
+                            </select>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Prix (DA)</label>
+                            <input type="number" id="adminPrice50" placeholder="ex: 22000" min="0" required>
+                        </div>
+                        <div class="admin-form-group">
+                            <label>Taille</label>
+                            <input type="text" id="adminSizeLabel" placeholder="ex: 125ml, 200ml, 100ml..." required>
+                        </div>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Description</label>
+                        <textarea id="adminDesc" rows="2" placeholder="Description du parfum..." required></textarea>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Statut</label>
+                        <select id="adminStatus">
+                            <option value="Disponible">Disponible</option>
+                            <option value="Indisponible">Indisponible</option>
+                        </select>
+                    </div>
+                    <div class="admin-form-group">
+                        <label>Photo</label>
+                        <div class="admin-image-upload">
+                            <input type="file" id="adminImageFile" accept="image/*">
+                            <span>ou</span>
+                            <input type="url" id="adminImageUrl" placeholder="Coller une URL d'image...">
+                        </div>
+                        <div class="admin-image-preview" id="adminImagePreview">
+                            <img src="" style="display:none" id="adminPreviewImg">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold admin-submit">Ajouter le parfum</button>
+                </form>
+            </div>
+            <!-- Tab: Modifier -->
+            <div class="admin-tab-content" id="adminTabEdit">
+                <div class="admin-edit-list" id="adminEditList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Mon Panier</h3>
+            <button class="cart-close" id="cartClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="cart-empty">Votre panier est vide</p>
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <span>Total</span>
+                <span id="cartTotal">0,00 DA</span>
+            </div>
+            <button class="btn btn-gold" id="checkoutBtn">Commander</button>
+        </div>
+    </div>
+
+    <section id="commande" class="page">
+        <div class="container section">
+            <h2 class="section-title">Finaliser la commande</h2>
+            <p class="section-subtitle">Remplissez vos informations pour valider votre panier</p>
+            <div class="commande-wrapper">
+                <div class="commande-recap">
+                    <h3><i class="fas fa-shopping-bag"></i> Récapitulatif</h3>
+                    <div id="commandeRecapItems"></div>
+                    <div class="commande-recap-total">
+                        <span>Total</span>
+                        <span id="commandeRecapTotal">0,00 DA</span>
+                    </div>
+                </div>
+                <form id="commandeForm" class="commande-form">
+                    <div class="commande-row">
+                        <div class="commande-group">
+                            <label><i class="fas fa-user"></i> Prénom</label>
+                            <input type="text" id="cmdPrenom" placeholder="Votre prénom" required>
+                        </div>
+                        <div class="commande-group">
+                            <label><i class="fas fa-user"></i> Nom</label>
+                            <input type="text" id="cmdNom" placeholder="Votre nom" required>
+                        </div>
+                    </div>
+                    <div class="commande-group">
+                        <label><i class="fas fa-phone-alt"></i> Numéro de téléphone</label>
+                        <input type="tel" id="cmdPhone" placeholder="ex: 0555 12 34 56" required>
+                    </div>
+                    <div class="commande-row">
+                        <div class="commande-group">
+                            <label><i class="fas fa-map-marker-alt"></i> Wilaya</label>
+                            <select id="cmdWilaya" required>
+                                <option value="">Sélectionnez une wilaya</option>
+                            </select>
+                        </div>
+                        <div class="commande-group">
+                            <label><i class="fas fa-city"></i> Commune</label>
+                            <input type="text" id="cmdCommune" placeholder="Votre commune" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-gold commande-submit"><i class="fas fa-check-circle"></i> Confirmer la commande</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h3>Elixire.ma</h3>
+                    <p>L'excellence de la parfumerie orientale depuis 1970.</p>
+                </div>
+                <div class="footer-links">
+                    <h4>Liens rapides</h4>
+                    <ul>
+                        <li><a href="#accueil">Accueil</a></li>
+                        <li><a href="#catalogue">Parfums</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p>Soyez informé de nos nouvelles fragrances</p>
+                    <form class="newsletter-form" id="newsletterForm">
+                        <input type="email" placeholder="Votre email" required>
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Elixire.ma. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple inline test to confirm JS runs
+        (function(){
+            var d = document.createElement('div');
+            d.id = 'inlineTest';
+            d.style.cssText = 'position:fixed;top:0;left:0;z-index:99999;background:#f00;color:#fff;padding:4px 10px;font:13px sans-serif';
+            d.textContent = 'JS: OK';
+            document.body.appendChild(d);
+        })();
+    </script>
+    <script src="script.js?v=2"></script>
+</body>
+
+</html>
