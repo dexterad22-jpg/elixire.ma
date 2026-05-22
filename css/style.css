@@ -1969,6 +1969,28 @@ ul {
     .product-stars span {
         font-size: 0.7rem;
     }
+.stat-number {
+        font-size: 1.6rem;
+    }
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    /* Search bar mobile */
+    .search-bar {
+        margin: 0 0 25px;
+        max-width: 100%;
+        padding: 0 16px;
+    }
+    .search-input {
+        font-size: 0.85rem;
+        padding: 12px 0;
+    }
+    .search-icon {
+        font-size: 0.9rem;
+        margin-right: 10px;
+    }
+
 .product-size-label {
     font-size: 0.8rem;
     color: var(--gold);
@@ -2045,16 +2067,21 @@ ul {
 
     /* Search bar mobile */
     .search-bar {
-        margin: 0 0 25px;
+        margin: 0 0 20px;
         max-width: 100%;
-        padding: 0 16px;
+        padding: 0 14px;
+        background: rgba(212,175,55,0.05);
+        border-color: rgba(212,175,55,0.3);
+    }
+    .search-bar:focus-within {
+        background: rgba(212,175,55,0.08);
     }
     .search-input {
-        font-size: 0.85rem;
-        padding: 12px 0;
+        font-size: 0.9rem;
+        padding: 13px 0;
     }
     .search-icon {
-        font-size: 0.9rem;
+        font-size: 1rem;
         margin-right: 10px;
     }
 
