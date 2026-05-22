@@ -556,6 +556,42 @@ ul {
     border-color: var(--gold);
 }
 
+/* ===== SEARCH BAR ===== */
+.search-bar {
+    display: flex;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto 40px;
+    background: var(--black);
+    border: 1px solid rgba(212,175,55,0.2);
+    border-radius: 30px;
+    padding: 0 20px;
+    transition: var(--transition);
+}
+.search-bar:focus-within {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(212,175,55,0.1);
+}
+.search-icon {
+    color: var(--gold);
+    font-size: 1rem;
+    margin-right: 12px;
+}
+.search-input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--white);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    padding: 14px 0;
+}
+.search-input::placeholder {
+    color: var(--gray);
+    font-weight: 300;
+}
+
 /* ===== PERFUME DETAIL ===== */
 #parfume-detail {
     padding-top: 80px;
@@ -1933,6 +1969,28 @@ ul {
     .product-stars span {
         font-size: 0.7rem;
     }
+.stat-number {
+        font-size: 1.6rem;
+    }
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    /* Search bar mobile */
+    .search-bar {
+        margin: 0 0 25px;
+        max-width: 100%;
+        padding: 0 16px;
+    }
+    .search-input {
+        font-size: 0.85rem;
+        padding: 12px 0;
+    }
+    .search-icon {
+        font-size: 0.9rem;
+        margin-right: 10px;
+    }
+
 .product-size-label {
     font-size: 0.8rem;
     color: var(--gold);
@@ -2005,6 +2063,21 @@ ul {
         font-size: 0.7rem;
         white-space: nowrap;
         flex-shrink: 0;
+    }
+
+    /* Search bar mobile */
+    .search-bar {
+        margin: 0 0 25px;
+        max-width: 100%;
+        padding: 0 16px;
+    }
+    .search-input {
+        font-size: 0.85rem;
+        padding: 12px 0;
+    }
+    .search-icon {
+        font-size: 0.9rem;
+        margin-right: 10px;
     }
 
     /* Detail page */
